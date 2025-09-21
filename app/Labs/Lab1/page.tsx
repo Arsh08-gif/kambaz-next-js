@@ -53,14 +53,14 @@ export default function Lab1() {
                     <li>Serve and enjoy!</li>
                 </ol>
 
-                My favorite recipe:
-                <ol id="wd-your-favorite-recipe">
-                    <li>Cook pasta in salted boiling water until al dente.</li>
-                    <li>Melt butter in a pan, add minced garlic, and sauté until fragrant.</li>
-                    <li>Drain pasta (reserve a little pasta water).</li>
-                    <li>Toss pasta with garlic butter, pasta water, salt, and pepper.</li>
-                    <li>Top with parmesan and parsley, then serve.</li>
-                </ol>
+                My favorite Books:
+                <ul id="wd-your-favorite-recipe">
+                    <li>Kafka on the Shore</li>
+                    <li>Norgwegian Wood</li>
+                    <li>1984</li>
+                    <li>Atomic Habbits</li>
+                    <li>Courage to be disliked</li>
+                </ul>
             </div>
 
             <div id="wd-tables">

@@ -29,7 +29,15 @@ export default function Labs() {
         </li>
       </ul>
       <h1>Code Repo</h1>
-      <ul>  
+      <ul>
+        <li>
+          <Link href="https://github.com/Arsh08-gif/kambaz-next-js" id="wd-kambaz-link">
+            Github </Link>
+        </li>
+        <li>
+          <Link href="https://kambaz-next-js-black-two.vercel.app/Account/Profile" id="wd-kambaz-link">
+            Vercel </Link>
+        </li>
       </ul>
     </div>
   );
