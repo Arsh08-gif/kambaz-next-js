@@ -1,44 +1,96 @@
 import Link from "next/link";
+import "./style.css";
+import { Button, InputGroup, ListGroup, ListGroupItem } from "react-bootstrap";
+import { BsGripVertical, BsPlus } from "react-icons/bs";
+import { LuNotebookPen } from "react-icons/lu";
+import LessonControlButtons from "../Modules/LessonControlButtons";
+import { IoEllipsisVertical } from "react-icons/io5";
+import { FaPlus } from "react-icons/fa6";
+import { IoMdSearch } from "react-icons/io";
 
 export default function Assignments() {
     return (
         <div id="wd-assignments">
-            <input placeholder="Search for Assignments"
-                id="wd-search-assignment" />
-            <button id="wd-add-assignment-group">+ Group</button>
-            <button id="wd-add-assignment">+ Assignment</button>
-            <h3 id="wd-assignments-title">
-                ASSIGNMENTS 40% of Total <button>+</button> </h3>
-            <ul id="wd-assignment-list">
-                <li className="wd-assignment-list-item">
-                    <Link href="/Courses/1234/Assignments/1"
-                        className="wd-assignment-link" >
-                        A1 - ENV + HTML
-                    </Link>
-                    <p>Multiple Modules | <span>Not available until May 6 at 12:00am</span> |
-                        Due May 13 at 11:59pm | 100pts
-                    </p>
-                </li>
-                <li className="wd-assignment-list-item">
-                    <Link href="/Courses/1234/Assignments/2"
-                        className="wd-assignment-link" >
-                        A2 - CSS + BOOTSTRAP
-                    </Link>
-                    <p>Multiple Modules | <span>Not available until May 6 at 12:00am</span> |
-                        Due May 13 at 11:59pm | 100pts
-                    </p>
-                </li>
+            <div className="d-flex align-items-center justify-content-between mb-3">
+                <div className="input-group" style={{ maxWidth: "300px" }}>
+                    <span className="input-group-text">
+                        <IoMdSearch/>
+                    </span>
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Search for Assignment"
+                    />
+                </div>
 
-                <li className="wd-assignment-list-item">
-                    <Link href="/Courses/1234/Assignments/3"
-                        className="wd-assignment-link" >
-                        A3 - JAVASCRIPT + REACT
-                    </Link>
-                    <p>Multiple Modules | <span>Not available until May 6 at 12:00am</span> |
-                        Due May 13 at 11:59pm | 100pts
-                    </p>
-                </li>
-            </ul >
+                <div>
+                    <Button
+                        variant="secondary"
+                        size="lg"
+                        className="me-2"
+                        id="wd-add-module-btn"
+                    >
+                        <FaPlus className="me-2 position-relative" style={{ bottom: "1px" }} />
+                        Group
+                    </Button>
+
+                    <Button
+                        variant="danger"
+                        size="lg"
+                        id="wd-add-assignment-btn"
+                    >
+                        <FaPlus className="me-2 position-relative" style={{ bottom: "1px" }} />
+                        Assignment
+                    </Button>
+                </div>
+
+            </div>
+
+            <ListGroup className="rounded-0 m-5" id="wd-modules">
+                <ListGroupItem className="wd-module p-0 mb-5 fs-5 border-gray">
+                    <div className="wd-title p-3 ps-2 bg-secondary">
+                        <BsGripVertical className="me-2 fs-3" /> ASSIGNMENTS
+                        <div className="float-end">
+                            <span className="badge text-bg-secondary"> 40% of Total</span>
+                            <BsPlus />
+                            <IoEllipsisVertical className="fs-4" />
+                        </div>
+                    </div>
+                    <ListGroup className="wd-lessons rounded-0">
+                        <ListGroupItem action href="/Courses/1234/Assignments/1" className="wd-lesson p-3 ps-1 text-black">
+                            <BsGripVertical className="me-2 fs-3" />
+                            <LuNotebookPen className="text-success" /> A1 - ENV + HTML
+                            <LessonControlButtons />
+                            <p className="p-3 ps-1 me-6">
+                                <span className="text-danger fw-bold">Multiple Modules</span> |
+                                <span className="fw-bold"> Not available until </span> May 6 at 12:00am |
+                                <span className="fw-bold"> Due</span> May 13 at 11:59pm | 100 pts
+                            </p>
+
+                        </ListGroupItem>
+                        <ListGroupItem action href="/Courses/1234/Assignments/1" className="wd-lesson p-3 ps-1 text-black">
+                            <BsGripVertical className="me-2 fs-3" />
+                            <LuNotebookPen className="text-success" /> A2 - CSS + BOOTSTRAP
+                            <LessonControlButtons />
+                            <p className="p-3 ps-1 me-6">
+                                <span className="text-danger fw-bold">Multiple Modules</span> |
+                                <span className="fw-bold"> Not available until </span> May 6 at 12:00am |
+                                <span className="fw-bold"> Due</span> May 13 at 11:59pm | 100 pts
+                            </p>
+                        </ListGroupItem>
+                        <ListGroupItem action href="/Courses/1234/Assignments/1" className="wd-lesson p-3 ps-1 text-black">
+                            <BsGripVertical className="me-2 fs-3" />
+                            <LuNotebookPen className="text-success" /> A3 - JAVASCRIPT + REACT
+                            <LessonControlButtons />
+                            <p className="p-3 ps-1 me-6">
+                                <span className="text-danger fw-bold">Multiple Modules</span> |
+                                <span className="fw-bold"> Not available until </span> May 6 at 12:00am |
+                                <span className="fw-bold"> Due</span> May 13 at 11:59pm | 100 pts
+                            </p>
+                        </ListGroupItem>
+                    </ListGroup>
+                </ListGroupItem>
+            </ListGroup>
         </div >
     );
 }

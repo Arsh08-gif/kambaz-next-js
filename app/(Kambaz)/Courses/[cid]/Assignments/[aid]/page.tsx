@@ -1,104 +1,151 @@
+import { Button, Col, Form, FormCheck, FormControl, FormLabel, FormSelect, Row } from "react-bootstrap";
+import { FaPlus } from "react-icons/fa6";
+import { IoCalendarOutline } from "react-icons/io5";
+
+
 export default function AssignmentEditor() {
     return (
         <div id="wd-assignments-editor">
-            <label htmlFor="wd-name">Assignment Name</label>
-            <input id="wd-name" defaultValue="A1 - ENV + HTML" /><br /><br />
-            <textarea id="wd-description">
-                The assignment is available online Submit a link to the landing page of
-            </textarea>
-            <br />
-            <table>
-                <tr>
-                    <td align="right" valign="top">
-                        <label htmlFor="wd-points">Points</label>
-                    </td>
-                    <td>
-                        <input id="wd-points" defaultValue={100} />
-                    </td>
-                </tr><br />
-                <tr>
-                    <td align="right" valign="top">
-                        <label htmlFor="wd-group">Assignment Group</label>
-                    </td>
-                    <td>
-                        <select id="wd-group">
-                            <option value="assignment">ASSIGNMENTS</option>
-                        </select>
-                    </td>
-                </tr><br />
-                <tr>
-                    <td align="right" valign="top">
-                        <label htmlFor="wd-submission-type">Submission Type</label>
-                    </td>
-                    <td>
-                        <select id="wd-submission-type">
-                            <option value="online">Online</option>
-                        </select><br />
+            <FormLabel>Assignment Name</FormLabel>
+            <FormControl type="text" placeholder="A1" />
+            <FormControl as="textarea" className="mt-3" rows={3} defaultValue="This is the default text" />
 
-                        <label>Online Entry Options</label><br />
+            <Row className="mb-3 mt-3" controlId="points">
+                <FormLabel column className="text-end"> Points </FormLabel>
+                <Col sm={10}>
+                    <FormControl type="text" defaultValue={100} />
+                </Col>
+            </Row>
 
-                        <input type="checkbox" name="check-genre" id="wd-text-entry" />
-                        <label htmlFor="wd-chkbox-comedy">Text Entry</label><br />
+            <Row className="mb-3 mt-3" controlId="points">
+                <FormLabel column className="text-end"> Assignment Group </FormLabel>
+                <Col sm={10}>
+                    <FormSelect>
+                        <option value="0" defaultChecked>ASSIGNMENTS</option>
+                    </FormSelect>
+                </Col>
+            </Row>
 
-                        <input type="checkbox" name="check-genre" id="wd-website-url" />
-                        <label htmlFor="wd-chkbox-drama">Website URL</label><br />
+            <Row className="mb-3 mt-3" controlId="points">
+                <FormLabel column className="text-end"> Display Grade as </FormLabel>
+                <Col sm={10}>
+                    <FormSelect>
+                        <option value="0" defaultChecked>Percentage</option>
+                    </FormSelect>
+                </Col>
+            </Row>
 
-                        <input type="checkbox" name="check-genre" id="wd-media-recordings" />
-                        <label htmlFor="wd-chkbox-scifi">Media Recordings</label><br />
+            <Row className="mb-3 mt-3" controlId="submission">
+                <FormLabel column className="text-end"> Submission Type </FormLabel>
+                <Col sm={10} className="submission-box">
+                    <div className="border rounded p-3 mt-2">
+                        <FormSelect defaultValue={"Online"}>
+                            <option value="0" defaultChecked>Online</option>
+                        </FormSelect>
+                        <div className="border rounded p-3 mt-2">
+                            <strong>Online Entry Options</strong>
+                            <FormCheck
+                                type="checkbox"
+                                id="text-entry"
+                                label="Text Entry"
+                                className="mt-4"
+                            >
+                            </FormCheck>
 
-                        <input type="checkbox" name="check-genre" id="wd-student-annotation" />
-                        <label htmlFor="wd-chkbox-fantasy">Student Annotation</label><br />
+                            <FormCheck
+                                type="checkbox"
+                                id="text-entry"
+                                label="Website URL"
+                                defaultChecked
+                                className="mt-4"
+                            >
+                            </FormCheck>
 
-                        <input type="checkbox" name="check-genre" id="wd-file-upload" />
-                        <label htmlFor="wd-chkbox-fantasy">File Uploads</label><br />
-                    </td>
-                </tr><br />
-                <tr>
-                    <td align="right" valign="top">
-                        <label htmlFor="wd-assign-to">Assign</label>
-                    </td>
-                    <td>
-                        <tr>
-                            <td><label htmlFor="wd-assign-to">Assign To</label></td><br/>
-                            <td align="right" valign="top">
-                                <input id="wd-points" defaultValue="Everyone" />
-                            </td>
-                        </tr>
-                    </td>
+                            <FormCheck
+                                type="checkbox"
+                                id="text-entry"
+                                label="Media Recordings"
+                                className="mt-4"
+                            >
+                            </FormCheck>
 
-                </tr><br />
-                <tr>
-                    <td align="right" valign="top">
-                        <label htmlFor="wd-due-date">Due</label>
-                    </td>
-                    <td>
-                        <input type="date"
-                            defaultValue="2024-05-13"
-                            id="wd-due-date" />
-                    </td>
-                </tr><br />
-                <tr>
-                    <td align="right" valign="top">
-                        <label htmlFor="wd-available-from">Available from</label>
-                    </td>
-                    <td>
-                        <input type="date"
-                            defaultValue="2024-05-06"
-                            id="wd-available-from" />
-                    </td>
-                </tr><br />
-                <tr>
-                    <td align="right" valign="top">
-                        <label htmlFor="wd-available-until">Until</label>
-                    </td>
-                    <td>
-                        <input type="date"
-                            defaultValue="2024-05-20"
-                            id="wd-available-until" />
-                    </td>
-                </tr>
-            </table>
+                            <FormCheck
+                                type="checkbox"
+                                id="text-entry"
+                                label="Student Annotation"
+                                className="mt-4"
+                            >
+                            </FormCheck>
+
+                            <FormCheck
+                                type="checkbox"
+                                id="text-entry"
+                                label="File Uploads"
+                                className="mt-4"
+                            >
+                            </FormCheck>
+                        </div>
+                    </div>
+                </Col>
+            </Row>
+
+
+            <Row className="mb-3 mt-3" controlId="assign">
+                <FormLabel column className="text-end"> Assign </FormLabel>
+                <Col sm={10}>
+                    <div className="border rounded p-3 mt-2">
+                        <strong>Assign To</strong>
+                        <div className="input-group">
+                            <span className="input-group-text">First and last name</span>
+                            <input type="text" aria-label="First name" className="form-control" />
+                            <input type="text" aria-label="Last name" className="form-control" />
+                        </div>
+
+                        <div className="input-group mt-3">
+                            <strong>Due</strong>
+                            <div className="input-group">
+                                <input type="text" className="form-control" defaultValue="May 13, 2024, 11:59PM" />
+                                <span className="input-group-text"><IoCalendarOutline /></span>
+                            </div>
+                        </div>
+
+                        <div className="mt-3">
+                            <Row>
+                                <Col>
+                                    <strong>Available From</strong>
+                                    <div className="input-group">
+                                        <input type="text" className="form-control" defaultValue="May 6, 2024, 12:00PM" />
+                                        <span className="input-group-text"><IoCalendarOutline /></span>
+                                    </div>
+                                </Col>
+                                <Col>
+                                    <strong>Until</strong>
+                                    <div className="input-group">
+                                        <input type="text" className="form-control" defaultValue="May 7, 2024, 11:59PM" />
+                                        <span className="input-group-text"><IoCalendarOutline /></span>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </div>
+                    </div>
+
+
+                </Col>
+            </Row>
+            <hr/>
+            <div>
+                <Button variant="secondary" size="lg" className="me-1 float-end m-10" id="wd-save-btn">
+                    Save
+                </Button>
+
+                <Button variant="danger" size="lg" className="me-1 float-end m-10" id="wd-cancel-btn">
+                    Cancel
+                </Button>
+            </div>
+
         </div>
+
+
     );
 }
 

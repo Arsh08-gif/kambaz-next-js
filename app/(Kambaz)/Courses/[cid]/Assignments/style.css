@@ -1,0 +1,19 @@
+.input-group {
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 35%;
+    display: flex;
+    position: relative;
+}
+
+.wd-lesson {
+    background-color: transparent !important;
+    color: black !important;
+}
+
+.wd-lesson:focus,
+.wd-lesson:active {
+    background-color: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+}
