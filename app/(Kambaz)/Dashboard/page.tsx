@@ -12,7 +12,7 @@ export default function Dashboard() {
                         <Card>
                             <Link href="/Courses/1234/Home"
                                 className="wd-dashboard-course-link text-decoration-none text-dark">
-                                <CardImg variant="top" src="/images/react.png" width="100%" height={160} />
+                                <CardImg variant="top" src="/Images/react.png" width="100%" height={160} />
                                 <CardBody>
                                     <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">CS1234 React JS</CardTitle>
                                     <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
@@ -26,7 +26,7 @@ export default function Dashboard() {
                         <Card>
                             <Link href="/Courses/1234/Home"
                                 className="wd-dashboard-course-link text-decoration-none text-dark">
-                                <CardImg variant="top" src="/images/html.png" width="100%" height={160} />
+                                <CardImg variant="top" src="/Images/html.png" width="100%" height={160} />
                                 <CardBody>
                                     <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">CS1566 HTML</CardTitle>
                                     <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
@@ -40,7 +40,7 @@ export default function Dashboard() {
                         <Card>
                             <Link href="/Courses/1234/Home"
                                 className="wd-dashboard-course-link text-decoration-none text-dark">
-                                <CardImg variant="top" src="/images/css.jpg" height={160} />
+                                <CardImg variant="top" src="/Images/css.jpg" height={160} />
                                 <CardBody>
                                     <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">CS1345 CSS</CardTitle>
                                     <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
@@ -54,7 +54,7 @@ export default function Dashboard() {
                         <Card>
                             <Link href="/Courses/1234/Home"
                                 className="wd-dashboard-course-link text-decoration-none text-dark">
-                                <CardImg variant="top" src="/images/nodejs.png" width="100%" height={160} />
+                                <CardImg variant="top" src="/Images/nodejs.png" width="100%" height={160} />
                                 <CardBody>
                                     <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">CS1679 Node Js</CardTitle>
                                     <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
@@ -68,7 +68,7 @@ export default function Dashboard() {
                         <Card>
                             <Link href="/Courses/1234/Home"
                                 className="wd-dashboard-course-link text-decoration-none text-dark">
-                                <CardImg variant="top" src="/images/databases.jpg" width="100%" height={160} />
+                                <CardImg variant="top" src="/Images/databases.jpg" width="100%" height={160} />
                                 <CardBody>
                                     <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">CS1799 Databases</CardTitle>
                                     <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
@@ -82,7 +82,7 @@ export default function Dashboard() {
                         <Card>
                             <Link href="/Courses/1234/Home"
                                 className="wd-dashboard-course-link text-decoration-none text-dark">
-                                <CardImg variant="top" src="/images/js.png" width="100%" height={160} />
+                                <CardImg variant="top" src="/Images/js.png" width="100%" height={160} />
                                 <CardBody>
                                     <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">CS1455 JavaScript</CardTitle>
                                     <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
@@ -96,7 +96,7 @@ export default function Dashboard() {
                         <Card>
                             <Link href="/Courses/1234/Home"
                                 className="wd-dashboard-course-link text-decoration-none text-dark">
-                                <CardImg variant="top" src="/images/mongodb.png" height={170} />
+                                <CardImg variant="top" src="/Images/mongodb.png" height={170} />
                                 <CardBody>
                                     <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">CS1355 MongoDB</CardTitle>
                                     <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
