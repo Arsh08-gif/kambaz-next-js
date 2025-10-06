@@ -7,17 +7,21 @@ const GridLayout = () => {
                 <h2>Grid layout</h2>
                 <div className="wd-grid-row">
                     <div className="wd-grid-col-half-page wd-bg-color-yellow">
-                        <h3>Left half</h3>      </div>
+                        <h3>Left half</h3>      
+                    </div>
                     <div className="wd-grid-col-half-page wd-bg-color-blue wd-fg-color-white">
-                        <h3>Right half</h3>      </div>
+                        <h3>Right half</h3>      
+                    </div>
                 </div>
             </div>
             <div id="wd-css-left-third-right-two-thirds" className="wd-grid-row">
                 <div className="wd-grid-col-third-page wd-bg-color-green
         wd-fg-color-white">
-                    <h3>Left third</h3>    </div>
+                    <h3>Left third</h3>    
+                </div>
                 <div className="wd-grid-col-two-thirds-page wd-bg-color-red wd-fg-color-white">
-                    <h3>Right two thirds</h3>    </div>
+                    <h3>Right two thirds</h3>   
+                </div>
             </div>
             <div id="wd-css-side-bars" className="wd-grid-row">
                 <div className="wd-grid-col-left-sidebar wd-bg-color-yellow">
@@ -28,7 +32,8 @@ const GridLayout = () => {
                     <p>
                         This is the main content. This is the main content. This is the
                         main content.
-                    </p>    </div>
+                    </p>    
+                </div>
 
                 <div className="wd-grid-col-right-sidebar wd-bg-color-green wd-fg-color-white">
                     <h3>Side bar</h3>
