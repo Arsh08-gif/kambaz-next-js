@@ -35,7 +35,7 @@ export default function Labs() {
             Github </Link>
         </li>
         <li>
-          <Link href="https://kambaz-next-js-black-two.vercel.app/Account/Profile" id="wd-kambaz-link">
+          <Link href="https://kambaz-next-js-git-a2-arsh08-gifs-projects.vercel.app/Account/Signin" id="wd-kambaz-link">
             Vercel </Link>
         </li>
       </ul>
