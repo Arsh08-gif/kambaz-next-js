@@ -1,5 +1,5 @@
 import React from 'react'
-let loggedIn = true;
+const loggedIn = true;
 
 const TernaryOperator = () => {
     return(

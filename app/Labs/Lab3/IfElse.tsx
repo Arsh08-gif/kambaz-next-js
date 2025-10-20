@@ -1,6 +1,6 @@
 import React from 'react'
 
-let true1 = true, false1 = false;
+const true1 = true, false1 = false;
 
 
 const IfElse = () => {
