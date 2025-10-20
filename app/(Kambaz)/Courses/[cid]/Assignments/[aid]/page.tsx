@@ -1,6 +1,5 @@
 "use client"
-import { Button, Col, Form, FormCheck, FormControl, FormLabel, FormSelect, Row } from "react-bootstrap";
-import { FaPlus } from "react-icons/fa6";
+import {Col,FormCheck, FormControl, FormLabel, FormSelect, Row } from "react-bootstrap";
 import { IoCalendarOutline } from "react-icons/io5";
 import { useParams } from "next/navigation";
 import * as db from "../../../../Database";
@@ -11,7 +10,7 @@ export default function AssignmentEditor() {
     const { cid, aid } = useParams();
     console.log("aid assignment editor : " + aid)
     console.log("cid assignment editor : " + cid)
-    const assignment = db.assignments.find((a: any) => a._id === aid);
+    const assignment = db.assignments.find((a) => a._id === aid);
     return (
         <div id="wd-assignments-editor">
             <FormLabel>Assignment Name</FormLabel>

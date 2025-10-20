@@ -1,7 +1,6 @@
 "use client"
-import Link from "next/link";
 import "./style.css";
-import { Button, InputGroup, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Button,ListGroup, ListGroupItem } from "react-bootstrap";
 import { BsGripVertical, BsPlus } from "react-icons/bs";
 import { LuNotebookPen } from "react-icons/lu";
 import LessonControlButtons from "../Modules/LessonControlButtons";
@@ -63,9 +62,9 @@ export default function Assignments() {
                     </div>
                     <ListGroup className="wd-lessons rounded-0">
                         {assignments
-                            .filter((assignment: any) => assignment.course === cid)
-                            .map((assignment: any) => (
-                                <ListGroupItem action href={`/Courses/${cid}/Assignments/${assignment._id}`} className="wd-lesson p-3 ps-1 text-black">
+                            .filter((assignment) => assignment.course === cid)
+                            .map((assignment) => (
+                                <ListGroupItem key={assignment._id} action href={`/Courses/${cid}/Assignments/${assignment._id}`} className="wd-lesson p-3 ps-1 text-black">
                                     <BsGripVertical className="me-2 fs-3" />
                                     <LuNotebookPen className="text-success" /> {assignment.title}
                                     <LessonControlButtons />
