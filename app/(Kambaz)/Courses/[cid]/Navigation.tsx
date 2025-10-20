@@ -1,9 +1,6 @@
 import Link from "next/link";
-//import { usePathname } from "next/navigation";
 import { ListGroupItem } from "react-bootstrap";
-import Breadcrumb from "./Breadcrumb";
 export default function CourseNavigation({ course }: { course: { _id:string,name: string } | undefined; }) {
-    //const pathname = usePathname();
     const links = [
         {
             path: `/Courses/${course?._id}/Home`,

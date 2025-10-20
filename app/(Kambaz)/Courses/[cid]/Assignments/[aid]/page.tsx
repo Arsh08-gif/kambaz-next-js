@@ -14,7 +14,6 @@ export default function AssignmentEditor() {
     return (
         <div id="wd-assignments-editor">
             <FormLabel>Assignment Name</FormLabel>
-            {/* <FormControl type="text" placeholder="A1" /> */}
             <FormControl type="text" defaultValue={assignment?.title} />
             <FormControl as="textarea" className="mt-3" rows={3} defaultValue={assignment?.description} />
 
@@ -142,14 +141,6 @@ export default function AssignmentEditor() {
             </Row>
             <hr />
             <div>
-                {/* <Button variant="secondary" size="lg" className="me-1 float-end m-10" id="wd-save-btn">
-                    Save
-                </Button>
-
-                <Button variant="danger" size="lg" className="me-1 float-end m-10" id="wd-cancel-btn">
-                    Cancel
-                </Button> */}
-
                 <Link href={`/Courses/${cid}/Assignments`} className="btn btn-danger btn-lg me-1 float-end m-10" id="wd-cancel-btn">
                     Cancel
                 </Link>

@@ -77,37 +77,6 @@ export default function Assignments() {
                                 </ListGroupItem>
                             ))
                         }
-                        {/* <ListGroupItem action href="/Courses/1234/Assignments/1" className="wd-lesson p-3 ps-1 text-black">
-                            <BsGripVertical className="me-2 fs-3" />
-                            <LuNotebookPen className="text-success" /> A1 - ENV + HTML
-                            <LessonControlButtons />
-                            <p className="p-3 ps-1 me-6">
-                                <span className="text-danger fw-bold">Multiple Modules</span> |
-                                <span className="fw-bold"> Not available until </span> May 6 at 12:00am |
-                                <span className="fw-bold"> Due</span> May 13 at 11:59pm | 100 pts
-                            </p>
-
-                        </ListGroupItem>
-                        <ListGroupItem action href="/Courses/1234/Assignments/1" className="wd-lesson p-3 ps-1 text-black">
-                            <BsGripVertical className="me-2 fs-3" />
-                            <LuNotebookPen className="text-success" /> A2 - CSS + BOOTSTRAP
-                            <LessonControlButtons />
-                            <p className="p-3 ps-1 me-6">
-                                <span className="text-danger fw-bold">Multiple Modules</span> |
-                                <span className="fw-bold"> Not available until </span> May 6 at 12:00am |
-                                <span className="fw-bold"> Due</span> May 13 at 11:59pm | 100 pts
-                            </p>
-                        </ListGroupItem>
-                        <ListGroupItem action href="/Courses/1234/Assignments/1" className="wd-lesson p-3 ps-1 text-black">
-                            <BsGripVertical className="me-2 fs-3" />
-                            <LuNotebookPen className="text-success" /> A3 - JAVASCRIPT + REACT
-                            <LessonControlButtons />
-                            <p className="p-3 ps-1 me-6">
-                                <span className="text-danger fw-bold">Multiple Modules</span> |
-                                <span className="fw-bold"> Not available until </span> May 6 at 12:00am |
-                                <span className="fw-bold"> Due</span> May 13 at 11:59pm | 100 pts
-                            </p>
-                        </ListGroupItem> */}
                     </ListGroup>
                 </ListGroupItem>
             </ListGroup>
