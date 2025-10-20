@@ -1,9 +1,71 @@
 import Link from "next/link";
-export default function CourseNavigation() {
+//import { usePathname } from "next/navigation";
+import { ListGroupItem } from "react-bootstrap";
+import Breadcrumb from "./Breadcrumb";
+export default function CourseNavigation({ course }: { course: { _id:string,name: string } | undefined; }) {
+    //const pathname = usePathname();
+    const links = [
+        {
+            path: `/Courses/${course?._id}/Home`,
+            id: "wd-course-home-link",
+            label: "Home",
+            active: true,
+        },
+        {
+            path: `/Courses/${course?._id}/Modules`,
+            id: "wd-course-modules-link",
+            label: "Modules",
+        },
+        {
+            path: `/Courses/${course?._id}/Piazza`,
+            id: "wd-course-piazza-link",
+            label: "Piazza",
+        },
+        {
+            path: `/Courses/${course?._id}/Zoom`,
+            id: "wd-course-zoom-link",
+            label: "Zoom",
+        },
+        {
+            path: `/Courses/${course?._id}/Assignments`,
+            id: "wd-course-assignments-link",
+            label: "Assignments",
+        },
+        {
+            path: `/Courses/${course?._id}/Quizzes`,
+            id: "wd-course-quizzes-link",
+            label: "Quizzes",
+        },
+        {
+            path: `/Courses/${course?._id}/People/Table`,
+            id: "wd-course-people-link",
+            label: "People",
+        },
+    ];
+
     return (
-        
+
         <div id="wd-courses-navigation" className="wd list-group fs-5 rounded-0">
-            <Link href="/Courses/1234/Home" id="wd-course-home-link"
+            {links.map((link) => (
+                <ListGroupItem key={link.id}
+                    as={Link}
+                    href={link.path}
+                    id={link.id}
+                    className={`list-group-item border-0 ${link.active ? "active" : "text-danger"
+                        }`}
+                >
+
+                    {link.label}
+                </ListGroupItem>
+            ))}
+
+        </div>
+
+    );
+}
+
+
+{/* <Link href="/Courses/1234/Home" id="wd-course-home-link"
                 className="list-group-item active border-0"> Home </Link>
             <Link href="/Courses/1234/Modules" id="wd-course-modules-link"
                 className="list-group-item text-danger border-0"> Modules </Link>
@@ -16,9 +78,5 @@ export default function CourseNavigation() {
             <Link href="/Courses/1234/Quizzes" id="wd-course-quizzes-link"
                 className="list-group-item text-danger border-0"> Quizzes </Link>
             <Link href="/Courses/1234/People/Table" id="wd-course-people-link"
-                className="list-group-item text-danger border-0" > People </Link>
-        </div>
-
-    );
-}
+                className="list-group-item text-danger border-0" > People </Link> */}
 

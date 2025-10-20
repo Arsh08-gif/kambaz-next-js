@@ -1,19 +1,28 @@
+"use client"
 import { Button, Col, Form, FormCheck, FormControl, FormLabel, FormSelect, Row } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa6";
 import { IoCalendarOutline } from "react-icons/io5";
+import { useParams } from "next/navigation";
+import * as db from "../../../../Database";
+import Link from "next/link";
 
 
 export default function AssignmentEditor() {
+    const { cid, aid } = useParams();
+    console.log("aid assignment editor : " + aid)
+    console.log("cid assignment editor : " + cid)
+    const assignment = db.assignments.find((a: any) => a._id === aid);
     return (
         <div id="wd-assignments-editor">
             <FormLabel>Assignment Name</FormLabel>
-            <FormControl type="text" placeholder="A1" />
-            <FormControl as="textarea" className="mt-3" rows={3} defaultValue="This is the default text" />
+            {/* <FormControl type="text" placeholder="A1" /> */}
+            <FormControl type="text" defaultValue={assignment?.title} />
+            <FormControl as="textarea" className="mt-3" rows={3} defaultValue={assignment?.description} />
 
             <Row className="mb-3 mt-3" controlId="points">
                 <FormLabel column className="text-end"> Points </FormLabel>
                 <Col sm={10}>
-                    <FormControl type="text" defaultValue={100} />
+                    <FormControl type="text" defaultValue={assignment?.points} />
                 </Col>
             </Row>
 
@@ -104,7 +113,7 @@ export default function AssignmentEditor() {
                         <div className="input-group mt-3">
                             <strong>Due</strong>
                             <div className="input-group">
-                                <input type="text" className="form-control" defaultValue="May 13, 2024, 11:59PM" />
+                                <input type="text" className="form-control" defaultValue={assignment?.due_date}/>
                                 <span className="input-group-text"><IoCalendarOutline /></span>
                             </div>
                         </div>
@@ -114,14 +123,14 @@ export default function AssignmentEditor() {
                                 <Col>
                                     <strong>Available From</strong>
                                     <div className="input-group">
-                                        <input type="text" className="form-control" defaultValue="May 6, 2024, 12:00PM" />
+                                        <input type="text" className="form-control" defaultValue={assignment?.available_date} />
                                         <span className="input-group-text"><IoCalendarOutline /></span>
                                     </div>
                                 </Col>
                                 <Col>
                                     <strong>Until</strong>
                                     <div className="input-group">
-                                        <input type="text" className="form-control" defaultValue="May 7, 2024, 11:59PM" />
+                                        <input type="text" className="form-control" defaultValue={assignment?.until} />
                                         <span className="input-group-text"><IoCalendarOutline /></span>
                                     </div>
                                 </Col>
@@ -132,15 +141,22 @@ export default function AssignmentEditor() {
 
                 </Col>
             </Row>
-            <hr/>
+            <hr />
             <div>
-                <Button variant="secondary" size="lg" className="me-1 float-end m-10" id="wd-save-btn">
+                {/* <Button variant="secondary" size="lg" className="me-1 float-end m-10" id="wd-save-btn">
                     Save
                 </Button>
 
                 <Button variant="danger" size="lg" className="me-1 float-end m-10" id="wd-cancel-btn">
                     Cancel
-                </Button>
+                </Button> */}
+
+                <Link href={`/Courses/${cid}/Assignments`} className="btn btn-danger btn-lg me-1 float-end m-10" id="wd-cancel-btn">
+                    Cancel
+                </Link>
+                <Link href={`/Courses/${cid}/Assignments`} className="btn btn-secondary btn-lg me-1 float-end m-10" id="wd-save-btn">
+                    Save
+                </Link>
             </div>
 
         </div>

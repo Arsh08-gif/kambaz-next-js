@@ -1,6 +1,12 @@
+"use client"
+import { log } from "console";
 import Modules from "../Modules/page";
 import CourseStatus from "./Status";
+import { useParams } from "next/navigation";
+
 export default function Home() {
+    const { cid } = useParams();
+    console.log("cid Home: " + cid)
     return (
         <div id="wd-home">
             <div className="d-flex" id="wd-home">

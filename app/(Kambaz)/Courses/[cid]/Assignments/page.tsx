@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link";
 import "./style.css";
 import { Button, InputGroup, ListGroup, ListGroupItem } from "react-bootstrap";
@@ -7,14 +8,18 @@ import LessonControlButtons from "../Modules/LessonControlButtons";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa6";
 import { IoMdSearch } from "react-icons/io";
+import { assignments } from "../../../Database";
+import { useParams } from "next/navigation";
 
 export default function Assignments() {
+    const { cid } = useParams();
+    console.log("cid assignment: " + cid)
     return (
         <div id="wd-assignments">
             <div className="d-flex align-items-center justify-content-between mb-3">
                 <div className="input-group" style={{ maxWidth: "300px" }}>
                     <span className="input-group-text">
-                        <IoMdSearch/>
+                        <IoMdSearch />
                     </span>
                     <input
                         type="text"
@@ -57,7 +62,23 @@ export default function Assignments() {
                         </div>
                     </div>
                     <ListGroup className="wd-lessons rounded-0">
-                        <ListGroupItem action href="/Courses/1234/Assignments/1" className="wd-lesson p-3 ps-1 text-black">
+                        {assignments
+                            .filter((assignment: any) => assignment.course === cid)
+                            .map((assignment: any) => (
+                                <ListGroupItem action href={`/Courses/${cid}/Assignments/${assignment._id}`} className="wd-lesson p-3 ps-1 text-black">
+                                    <BsGripVertical className="me-2 fs-3" />
+                                    <LuNotebookPen className="text-success" /> {assignment.title}
+                                    <LessonControlButtons />
+                                    <p className="p-3 ps-1 me-6">
+                                        <span className="text-danger fw-bold">Multiple Modules</span> |
+                                        <span className="fw-bold"> Not available until </span> May 6 at 12:00am |
+                                        <span className="fw-bold"> Due</span> May 13 at 11:59pm | 100 pts
+                                    </p>
+
+                                </ListGroupItem>
+                            ))
+                        }
+                        {/* <ListGroupItem action href="/Courses/1234/Assignments/1" className="wd-lesson p-3 ps-1 text-black">
                             <BsGripVertical className="me-2 fs-3" />
                             <LuNotebookPen className="text-success" /> A1 - ENV + HTML
                             <LessonControlButtons />
@@ -87,7 +108,7 @@ export default function Assignments() {
                                 <span className="fw-bold"> Not available until </span> May 6 at 12:00am |
                                 <span className="fw-bold"> Due</span> May 13 at 11:59pm | 100 pts
                             </p>
-                        </ListGroupItem>
+                        </ListGroupItem> */}
                     </ListGroup>
                 </ListGroupItem>
             </ListGroup>
