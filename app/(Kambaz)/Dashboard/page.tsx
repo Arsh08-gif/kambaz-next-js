@@ -14,7 +14,7 @@ export default function Dashboard() {
                             <Card>
                                 <Link href={`/Courses/${course._id}/Home`}
                                     className="wd-dashboard-course-link text-decoration-none text-dark" >
-                                    <CardImg src="/Images/react.png" variant="top" width="100%" height={160} />
+                                    <CardImg src={course.image} variant="top" width="100%" height={160} />
                                     <CardBody className="card-body">
                                         <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">
                                             {course.name} </CardTitle>
