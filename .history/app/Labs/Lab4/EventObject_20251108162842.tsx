@@ -21,7 +21,7 @@ interface EventState {
   metaKey?: boolean;
 }
 export default function EventObject() {
-  //const [event, setEvent] = useState(null);
+  const [event, setEvent] = useState(null);
   const [event, setEvent] = useState<EventState | null>(null);
   // const handleClick = (e: SetStateAction<null> | MouseEvent<HTMLButtonElement, MouseEvent>) => {
   //   e.target = e.target.outerHTML;

@@ -21,8 +21,7 @@ interface EventState {
   metaKey?: boolean;
 }
 export default function EventObject() {
-  //const [event, setEvent] = useState(null);
-  const [event, setEvent] = useState<EventState | null>(null);
+  const [event, setEvent] = useState(null);
   // const handleClick = (e: SetStateAction<null> | MouseEvent<HTMLButtonElement, MouseEvent>) => {
   //   e.target = e.target.outerHTML;
   //   delete e.view;
@@ -32,7 +31,7 @@ export default function EventObject() {
     // const eventCopy: any = { ...e };
     // eventCopy.target = (e.target as HTMLButtonElement).outerHTML;
     // delete eventCopy.view;
-    const eventCopy:EventState = {
+    const eventCopy = {
       type: e.type,
       target: (e.target as HTMLButtonElement).outerHTML,
       currentTarget: e.currentTarget.outerHTML,

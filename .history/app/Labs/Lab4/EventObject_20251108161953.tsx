@@ -21,38 +21,16 @@ interface EventState {
   metaKey?: boolean;
 }
 export default function EventObject() {
-  //const [event, setEvent] = useState(null);
-  const [event, setEvent] = useState<EventState | null>(null);
+  const [event, setEvent] = useState(null);
   // const handleClick = (e: SetStateAction<null> | MouseEvent<HTMLButtonElement, MouseEvent>) => {
   //   e.target = e.target.outerHTML;
   //   delete e.view;
   //   setEvent(e);
   // };
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    // const eventCopy: any = { ...e };
-    // eventCopy.target = (e.target as HTMLButtonElement).outerHTML;
-    // delete eventCopy.view;
-    const eventCopy:EventState = {
-      type: e.type,
-      target: (e.target as HTMLButtonElement).outerHTML,
-      currentTarget: e.currentTarget.outerHTML,
-      clientX: e.clientX,
-      clientY: e.clientY,
-      screenX: e.screenX,
-      screenY: e.screenY,
-      pageX: e.pageX,
-      pageY: e.pageY,
-      altKey: e.altKey,
-      ctrlKey: e.ctrlKey,
-      shiftKey: e.shiftKey,
-      metaKey: e.metaKey,
-      button: e.button,
-      buttons: e.buttons,
-      bubbles: e.bubbles,
-      cancelable: e.cancelable,
-      defaultPrevented: e.defaultPrevented,
-      timeStamp: e.timeStamp,
-    };
+    const eventCopy: any = { ...e };
+    eventCopy.target = (e.target as HTMLButtonElement).outerHTML;
+    delete eventCopy.view;
     setEvent(eventCopy);
   };
   return (

@@ -25,7 +25,7 @@ const deleteElement = (index: number) => {
    </ul><hr/>
 
    <ListGroup>
-        {todos.map((todo) => (
+        {todos.map((todo: any) => (
           <ListGroupItem key={todo.id}>
             {todo.title}
           </ListGroupItem>

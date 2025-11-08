@@ -49,7 +49,7 @@ export default function TodoList() {
 
                 <TodoForm />
                 {todos.map((todo,index) => (
-                    <TodoItem key = {index} todo={todo} />
+                    <TodoItem key =.  todo={todo} />
                 ))}
 
 
