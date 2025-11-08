@@ -16,13 +16,13 @@ const coursesSlice = createSlice({
    },
    deleteCourse: (state, { payload: courseId }) => {
      state.courses = state.courses.filter(
-       (course) => course._id !== courseId
+       (course: any) => course._id !== courseId
      );
    },
    updateCourse: (state, { payload: course }) => {
-     state.courses = state.courses.map((c) =>
+     state.courses = state.courses.map((c: any) =>
        c._id === course._id ? course : c
-     );
+     ) as any;
    },
  },
 });

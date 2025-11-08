@@ -16,10 +16,7 @@ export default function Signin() {
         username: string;
         password: string;
     }
-    const [credentials, setCredentials] = useState<Credentials>({
-        username: "",
-        password: "",
-    });
+    const [credentials, setCredentials] = useState<Credentials>({});
     console.log("credentials user " + credentials.username)
     console.log("credentials pwd " + credentials.password)
     const dispatch = useDispatch();

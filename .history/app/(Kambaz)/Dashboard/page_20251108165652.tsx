@@ -8,26 +8,26 @@ import * as db from "../Database";
 import { Button, Card, CardBody, CardImg, CardText, CardTitle, Col, FormControl, Row } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
 import { enrollInCourse, unenrollFromCourse } from "./reducer";
-import { enrollCourse, unenrollCourse } from "../Account/reducer"
+import {enrollCourse,unenrollCourse} from "../Account/reducer"
 import { json } from "stream/consumers";
 
 export default function Dashboard() {
     interface Course {
-        _id: string;
-        name: string;
-        number: string;
-        image: string;
-        startDate: string;
-        endDate: string;
-        department: string;
-        credits: number;
-        description: string;
-        color?: string; // Optional, for new courses without images
-    }
+    _id: string;
+    name: string;
+    number: string;
+    image: string;
+    startDate: string;
+    endDate: string;
+    department: string;
+    credits: number;
+    description: string;
+    color?: string; // Optional, for new courses without images
+}
     //const courses = db.courses;
     const { courses } = useSelector((state: RootState) => state.coursesReducer);
     const { currentUser } = useSelector((state: RootState) => state.accountReducer);
-    const { enrollments } = useSelector((state: RootState) => state.accountReducer);
+    const {enrollments} = useSelector((state: RootState) => state.accountReducer);
     console.log("current user on dashboard : " + JSON.stringify(currentUser));
     // if (!currentUser) {
     //     return <div>Please log in to view your courses.</div>;
@@ -38,16 +38,11 @@ export default function Dashboard() {
 
     const [showAllCourses, setShowAllCourses] = useState(false);
     // const [courses, setCourses] = useState<any[]>(db.courses);
-    const [course, setCourse] = useState<Course>({
-        _id: "0",
-        name: "New Course",
-        number: "New Number",
-        startDate: "2023-09-10",
-        endDate: "2023-12-15",
-        description: "New Description",
-        image: "",
-        department: "",
-        credits: 0
+    const [course, setCourse] = useState<any>({
+        _id: "0", name: "New Course", number: "New Number",
+        startDate: "2023-09-10", endDate: "2023-12-15",
+        // image: "../../Images/react.png", 
+        description: "New Description"
     });
 
     const isEnrolled = (courseId: string) => {
@@ -64,7 +59,7 @@ export default function Dashboard() {
         }
         dispatch(enrollCourse({ userId: currentUser._id, courseId }));
         console.log("isEnrolled : " + isEnrolled);
-
+        
     };
 
     const handleUnenroll = (courseId: string) => {
@@ -158,7 +153,7 @@ export default function Dashboard() {
                                                 {course.name} </CardTitle>
                                             <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
                                                 {course.description} </CardText>
-                                            <div className="d-flex gap-1 mt-2 justify-content-end align-items-center" style={{ marginRight: "-22px" }}>
+                                            <div className="d-flex gap-1 mt-2 justify-content-end align-items-center" style={{marginRight: "-22px"}}>
                                                 <Button variant="primary"> Go </Button>
                                                 {isEnrolled(course._id) ? (
                                                     <button

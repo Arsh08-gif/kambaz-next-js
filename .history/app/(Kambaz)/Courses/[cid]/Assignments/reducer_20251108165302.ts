@@ -51,17 +51,17 @@ const assignmentsSlice = createSlice({
             console.log("update..");
             console.log("assignments : " + JSON.stringify(state.assignments));
 
-            state.assignments = state.assignments.map((a) =>
+            state.assignments = state.assignments.map((a: any) =>
                 a._id === assignment._id ? assignment : a
-            );
+            ) as any;
 
             console.log("updated assign : " + JSON.stringify(state.assignments));
 
         },
         editAssignment: (state, { payload: assignmentId }) => {
-            state.assignments = state.assignments.map((a) =>
+            state.assignments = state.assignments.map((a: any) =>
                 a._id === assignmentId ? { ...a, editing: true } : a
-            );
+            ) as any;
         },
     },
 });

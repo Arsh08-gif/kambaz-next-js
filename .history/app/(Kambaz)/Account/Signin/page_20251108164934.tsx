@@ -18,7 +18,7 @@ export default function Signin() {
     }
     const [credentials, setCredentials] = useState<Credentials>({
         username: "",
-        password: "",
+  password: "",
     });
     console.log("credentials user " + credentials.username)
     console.log("credentials pwd " + credentials.password)

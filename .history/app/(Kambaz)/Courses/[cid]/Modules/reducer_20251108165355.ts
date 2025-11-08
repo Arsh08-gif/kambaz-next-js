@@ -42,12 +42,12 @@ const modulesSlice = createSlice({
         updateModule: (state, { payload: module }) => {
             state.modules = state.modules.map((m) =>
                 m._id === module._id ? module : m
-            );
+            ) as any;
         },
         editModule: (state, { payload: moduleId }) => {
             state.modules = state.modules.map((m) =>
                 m._id === moduleId ? { ...m, editing: true } : m
-            );
+            ) as any;
         },
     },
 });

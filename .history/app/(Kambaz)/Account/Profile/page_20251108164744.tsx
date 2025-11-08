@@ -6,24 +6,8 @@ import { setCurrentUser } from "../reducer";
 import { RootState } from "../../store";
 import { Button, FormControl } from "react-bootstrap";
 export default function Profile() {
-    interface Profile {
-        username: string;
-        password: string;
-        firstName: string;
-        lastName: string;
-        dob: string;
-        email: string;
-        role: string;
-    }
-    const [profile, setProfile] = useState<Profile>({
-        username: "",
-        password: "",
-        firstName: "",
-        lastName: "",
-        dob: "",
-        email: "",
-        role: "",
-    });
+    Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+    const [profile, setProfile] = useState<any>({});
     const dispatch = useDispatch();
     const { currentUser } = useSelector((state: RootState) => state.accountReducer);
     const fetchProfile = () => {

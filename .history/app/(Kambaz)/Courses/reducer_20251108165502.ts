@@ -22,7 +22,7 @@ const coursesSlice = createSlice({
    updateCourse: (state, { payload: course }) => {
      state.courses = state.courses.map((c) =>
        c._id === course._id ? course : c
-     );
+     ) as any;
    },
  },
 });

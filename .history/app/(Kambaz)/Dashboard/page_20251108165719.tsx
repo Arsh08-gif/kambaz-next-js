@@ -39,15 +39,10 @@ export default function Dashboard() {
     const [showAllCourses, setShowAllCourses] = useState(false);
     // const [courses, setCourses] = useState<any[]>(db.courses);
     const [course, setCourse] = useState<Course>({
-        _id: "0",
-        name: "New Course",
-        number: "New Number",
-        startDate: "2023-09-10",
-        endDate: "2023-12-15",
-        description: "New Description",
-        image: "",
-        department: "",
-        credits: 0
+        _id: "0", name: "New Course", number: "New Number",
+        startDate: "2023-09-10", endDate: "2023-12-15",
+        // image: "../../Images/react.png", 
+        description: "New Description"
     });
 
     const isEnrolled = (courseId: string) => {

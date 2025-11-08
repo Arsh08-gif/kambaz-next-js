@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { redirect } from "next/dist/client/components/navigation";
 import { useRouter } from "next/navigation";
-import { setCurrentUser, User } from "../reducer";
+import { setCurrentUser, User} from "../reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { use, useState } from "react";
 import * as db from "../../Database";
@@ -13,13 +13,10 @@ import { RootState } from "../../store";
 
 export default function Signin() {
     interface Credentials {
-        username: string;
-        password: string;
-    }
-    const [credentials, setCredentials] = useState<Credentials>({
-        username: "",
-        password: "",
-    });
+  username: string;
+  password: string;
+}
+    const [credentials, setCredentials] = useState<any>({});
     console.log("credentials user " + credentials.username)
     console.log("credentials pwd " + credentials.password)
     const dispatch = useDispatch();

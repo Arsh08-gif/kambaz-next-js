@@ -15,15 +15,7 @@ export default function Profile() {
         email: string;
         role: string;
     }
-    const [profile, setProfile] = useState<Profile>({
-        username: "",
-        password: "",
-        firstName: "",
-        lastName: "",
-        dob: "",
-        email: "",
-        role: "",
-    });
+    const [profile, setProfile] = useState<Profile>({});
     const dispatch = useDispatch();
     const { currentUser } = useSelector((state: RootState) => state.accountReducer);
     const fetchProfile = () => {

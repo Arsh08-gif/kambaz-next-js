@@ -17,12 +17,12 @@ export default function Profile() {
     }
     const [profile, setProfile] = useState<Profile>({
         username: "",
-        password: "",
-        firstName: "",
-        lastName: "",
-        dob: "",
-        email: "",
-        role: "",
+  password: "",
+  firstName: "",
+  lastName: "",
+  dob: "",
+  email: "",
+  role: "",
     });
     const dispatch = useDispatch();
     const { currentUser } = useSelector((state: RootState) => state.accountReducer);
