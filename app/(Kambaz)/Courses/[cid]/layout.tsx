@@ -4,7 +4,6 @@ import CourseNavigation from "./Navigation";
 import { useSelector } from "react-redux";
 import { useParams } from "next/navigation";
 import { RootState } from "../../store";
-import { courses } from "../../Database";
 import { FaAlignJustify } from "react-icons/fa";
 import Breadcrumb from "./Breadcrumb";
 export default function CoursesLayout(

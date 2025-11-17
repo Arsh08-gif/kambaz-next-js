@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import * as db from "../Database";
+import db from "../Database";
 
 interface Enrollment {
   _id: string;

@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { setCurrentUser, User } from "../reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { use, useState } from "react";
-import * as db from "../../Database";
 import { FormControl, Button } from "react-bootstrap";
 import { log } from "console";
 import { RootState } from "../../store";
