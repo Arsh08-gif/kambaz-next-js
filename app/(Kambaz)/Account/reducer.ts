@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import users from "../../../../kambaz-node-server-app/Database/users";
-import enrollments from "../../../../kambaz-node-server-app/Database/enrollments";
+//import users from "../../../../kambaz-node-server-app/Database/users";
+//import enrollments from "../../../../kambaz-node-server-app/Database/enrollments";
 
 export interface User {
   _id: string;
@@ -32,8 +32,8 @@ interface AccountState {
 
 const initialState: AccountState = {
   currentUser: null,
-  users: users,
-  enrollments: enrollments
+  users: [] as User[],
+  enrollments: [] as Enrollment[]
 
 };
 

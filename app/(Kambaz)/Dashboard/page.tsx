@@ -7,7 +7,7 @@ import Link from "next/link";
 import * as client from "../Courses/client";
 import { Button, Card, CardBody, CardImg, CardText, CardTitle, Col, FormControl, Row } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
-import { enrollInCourse, unenrollFromCourse } from "./reducer";
+//import { enrollInCourse, unenrollFromCourse } from "./reducer";
 import { enrollCourse, unenrollCourse, addEnrollment, setEnrollments } from "../Account/reducer"
 import { json } from "stream/consumers";
 
