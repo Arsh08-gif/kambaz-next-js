@@ -38,10 +38,10 @@ export default function WorkingWithArraysAsynchronously() {
 
     };
 
-    const createNewTodo = async () => {
-        const todos = await client.createNewTodo();
-        setTodos(todos);
-    };
+    // const createNewTodo = async () => {
+    //     const todos = await client.createNewTodo();
+    //     setTodos(todos);
+    // };
     const postNewTodo = async () => {
         const newTodo = await client.postNewTodo({
             title: "New Posted Todo",
@@ -76,8 +76,8 @@ export default function WorkingWithArraysAsynchronously() {
             {errorMessage && (<div id="wd-todo-error-message"
                 className="alert alert-danger mb-2 mt-2">{errorMessage}</div>)}
             <h4>Todos
-                <FaPlusCircle onClick={createNewTodo}
-                    className="text-success float-end fs-3" />
+                {/* <FaPlusCircle onClick={createNewTodo}
+                    className="text-success float-end fs-3" /> */}
                 <FaPlusCircle onClick={postNewTodo}
                     className="text-primary float-end fs-3 me-3"
                     id="wd-post-todo" />
