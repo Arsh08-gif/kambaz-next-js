@@ -31,9 +31,9 @@ export default function WorkingWithArraysAsynchronously() {
             const newTodos = todos.filter((t) => t.id !== todo.id);
             setTodos(newTodos);
         }
-        catch (error: any) {
+        catch (error) {
             console.log(error);
-            setErrorMessage(error.response.data.message);
+            //setErrorMessage(error.response.data.message);
         }
 
     };
@@ -60,8 +60,9 @@ export default function WorkingWithArraysAsynchronously() {
             await client.updateTodo(todo);
             setTodos(todos.map((t) => (t.id === todo.id ? todo : t)));
         }
-        catch (error: any) {
-            setErrorMessage(error.response.data.message);
+        catch (error) {
+            console.log(error);
+            //setErrorMessage(error.response.data.message);
         }
     };
 

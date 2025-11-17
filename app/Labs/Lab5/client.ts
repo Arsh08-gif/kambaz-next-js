@@ -45,11 +45,11 @@ export const postNewTodo = async (todo: NewTodo) => {
     const response = await axios.post(`${TODOS_API}`, todo);
     return response.data;
 };
-export const deleteTodo = async (todo: any) => {
+export const deleteTodo = async (todo: Todo) => {
   const response = await axios.delete(`${TODOS_API}/${todo.id}`);
   return response.data;
 };
-export const updateTodo = async (todo: any) => {
+export const updateTodo = async (todo: Todo) => {
   const response = await axios.put(`${TODOS_API}/${todo.id}`, todo);
   return response.data;
 };
