@@ -8,7 +8,7 @@ import { IoEllipsisVertical } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa6";
 import { IoMdSearch } from "react-icons/io";
 //import db from "../../../Database";
-import assignments from "../../../Database/assignments";
+import assignments from "../../../../../../kambaz-node-server-app/Database/assignments";
 import { useParams } from "next/navigation";
 
 export default function Assignments() {

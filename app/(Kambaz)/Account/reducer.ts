@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import users from "../Database/users";
-import enrollments from "../Database/enrollments";
+import users from "../../../../kambaz-node-server-app/Database/users";
+import enrollments from "../../../../kambaz-node-server-app/Database/enrollments";
 
 export interface User {
   _id: string;

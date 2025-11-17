@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 //import db from "../Database";
-import enrollments from "../Database/enrollments";
+import enrollments from "../../../../kambaz-node-server-app/Database/enrollments";
 
 interface Enrollment {
   _id: string;

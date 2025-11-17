@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import assignments from "../../../Database/assignments";
+//import assignments from "../../../Database/assignments";
 import { v4 as uuidv4 } from "uuid";
 
 export interface Assignment {

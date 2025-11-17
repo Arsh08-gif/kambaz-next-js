@@ -3,8 +3,8 @@ import { Table } from "react-bootstrap";
 import { FaUserCircle } from "react-icons/fa";
 import { useParams } from "next/navigation";
 //import db from "../../../../Database";
-import users from "../../../../Database/users"
-import enrollments from "../../../../Database/enrollments";
+import users from "../../../../../../../kambaz-node-server-app/Database/users"
+import enrollments from "../../../../../../../kambaz-node-server-app/Database/enrollments";
 
 
 export default function PeopleTable() {
