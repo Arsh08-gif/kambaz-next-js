@@ -8,6 +8,16 @@ import { FaTrash } from "react-icons/fa6";
 import { RootState } from "../../../store";
 
 export default function LessonControlButtons({ assignmentId }: { assignmentId: string }) {
+    interface Assignment {
+        _id: string;
+        title: string;
+        course: string;
+        description: string;
+        points: number;
+        available_date: string;
+        due_date: string;
+        until: string;
+    }
     const dispatch = useDispatch();
     const { assignments } = useSelector((state: RootState) => state.assignmentReducer);
     const handleDelete = async (e: React.MouseEvent, assignmentId: string) => {
@@ -18,7 +28,7 @@ export default function LessonControlButtons({ assignmentId }: { assignmentId: s
         if (confirmed) {
             // dispatch(deleteAssignment(assignmentId));
             await client.deleteAssignment(assignmentId);
-            dispatch(setAssignements(assignments.filter((a: any) => a._id !== assignmentId)));
+            dispatch(setAssignements(assignments.filter((a: Assignment) => a._id !== assignmentId)));
         }
     };
 
@@ -26,7 +36,7 @@ export default function LessonControlButtons({ assignmentId }: { assignmentId: s
         <div className="float-end">
             <GreenCheckmark />
             <IoEllipsisVertical className="fs-4" />
-            <FaTrash className="text-danger me-2 mb-1" onClick={(e) => handleDelete(e,assignmentId)} />
+            <FaTrash className="text-danger me-2 mb-1" onClick={(e) => handleDelete(e, assignmentId)} />
         </div>);
 }
 

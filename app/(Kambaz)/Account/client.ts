@@ -20,8 +20,8 @@ export const signin = async (credentials: Credentials) => {
         const response = await axiosWithCredentials.post(`${USERS_API}/signin`, credentials);
         return response.data;
     }
-    catch (error: any) {
-        console.error("Signin error:", error.response?.data);
+    catch (error) {
+        console.error("Signin error:", error);
         throw error;
     }
 };

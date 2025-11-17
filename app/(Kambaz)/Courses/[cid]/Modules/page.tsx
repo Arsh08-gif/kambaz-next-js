@@ -22,6 +22,14 @@ interface Lesson {
     description?: string;
     module: string;
 }
+interface Module {
+    _id: string;
+    name: string;
+    description?: string;
+    course: string;
+    lessons?: Lesson[];
+    editing?: boolean;
+}
 
 
 export default function Modules() {
@@ -64,17 +72,17 @@ export default function Modules() {
         if (!cid) return;
         const newModule = { _id: Date.now().toString(), name: moduleName, course: cid as string };
         console.log(JSON.stringify(newModule));
-        const module = await client.createModuleForCourse(cid as string, newModule);
-        dispatch(setModules([...modules, module]));
+        const responseMod = await client.createModuleForCourse(cid as string, newModule);
+        dispatch(setModules([...modules, responseMod]));
     };
     const onRemoveModule = async (moduleId: string) => {
         await client.deleteModule(moduleId);
-        dispatch(setModules(modules.filter((m: any) => m._id !== moduleId)));
+        dispatch(setModules(modules.filter((m: Module) => m._id !== moduleId)));
     };
 
-    const onUpdateModule = async (module: any) => {
+    const onUpdateModule = async (module: Module) => {
         await client.updateModule(module);
-        const newModules = modules.map((m: any) => m._id === module._id ? module : m);
+        const newModules = modules.map((m: Module) => m._id === module._id ? module : m);
         dispatch(setModules(newModules));
     };
 

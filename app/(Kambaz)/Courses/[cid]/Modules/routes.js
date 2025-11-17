@@ -9,11 +9,11 @@ export default function ModulesRoutes(app, db) {
   }
   const createModuleForCourse = (req, res) => {
     const { courseId } = req.params;
-    const module = {
+    const responseMod = {
       ...req.body,
       course: courseId,
     };
-    const newModule = dao.createModule(module);
+    const newModule = dao.createModule(responseMod);
     res.send(newModule);
   }
   const deleteModule = (req, res) => {
