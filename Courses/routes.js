@@ -1,7 +1,7 @@
 console.log("inside course router");
 
 import CoursesDao from "./dao.js";
-import EnrollmentsDao from "../Enrollments/dao.js";
+import EnrollmentsDao from "../app/(Kambaz)/Enrollments/dao.js";
 export default function CourseRoutes(app, db) {
     const dao = CoursesDao(db);
     const enrollmentsDao = EnrollmentsDao(db);
