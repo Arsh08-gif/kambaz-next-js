@@ -2,7 +2,7 @@
 import { Table } from "react-bootstrap";
 import { FaUserCircle } from "react-icons/fa";
 import { useParams } from "next/navigation";
-import * as db from "../../../../Database";
+import db from "../../../../Database";
 
 
 export default function PeopleTable() {
