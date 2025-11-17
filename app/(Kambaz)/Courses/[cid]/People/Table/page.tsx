@@ -3,8 +3,8 @@ import { Table } from "react-bootstrap";
 import { FaUserCircle } from "react-icons/fa";
 import { useParams } from "next/navigation";
 //import db from "../../../../Database";
-import users from "../../../../../../../kambaz-node-server-app/Database/users"
-import enrollments from "../../../../../../../kambaz-node-server-app/Database/enrollments";
+//import users from "../../../../../../../kambaz-node-server-app/Database/users"
+//import enrollments from "../../../../../../../kambaz-node-server-app/Database/enrollments";
 
 
 export default function PeopleTable() {
@@ -18,7 +18,7 @@ export default function PeopleTable() {
                     <tr><th>Name</th><th>Login ID</th><th>Section</th><th>Role</th><th>Last Activity</th><th>Total Activity</th></tr>
                 </thead>
                 <tbody>
-
+{/* 
                     {users
                         .filter((usr) =>
                             enrollments.some((enrollment) => enrollment.user === usr._id && enrollment.course === cid)
@@ -37,7 +37,7 @@ export default function PeopleTable() {
                                 <td className="wd-total-activity">{user.totalActivity}</td>
                             </tr>
                         ))
-                    }
+                    } */}
 
                 </tbody>
             </Table>
