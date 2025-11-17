@@ -7,12 +7,13 @@ import LessonControlButtons from "../Modules/LessonControlButtons";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa6";
 import { IoMdSearch } from "react-icons/io";
-import db from "../../../Database";
+//import db from "../../../Database";
+import assignments from "../../../Database/assignments";
 import { useParams } from "next/navigation";
 
 export default function Assignments() {
     const { cid } = useParams();
-    const {assignments} = db
+    //const {assignments} = db
     console.log("cid assignment: " + cid)
     return (
         <div id="wd-assignments">
