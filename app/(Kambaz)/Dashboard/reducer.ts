@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import db from "../Database";
+//import db from "../Database";
+import enrollments from "../Database/enrollments";
 
 interface Enrollment {
   _id: string;
@@ -12,7 +13,8 @@ interface EnrollmentsState {
 }
 
 const initialState: EnrollmentsState = {
-  enrollments: db.enrollments,
+  // enrollments: db.enrollments,
+  enrollments: enrollments,
 };
 
 const enrollmentsSlice = createSlice({
