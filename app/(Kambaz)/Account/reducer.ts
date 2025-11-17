@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import users from "../Database/users.json";
-import { enrollments } from "../Database";
+import users from "../Database/users";
+import enrollments from "../Database/enrollments";
 
 export interface User {
   _id: string;
@@ -105,9 +105,15 @@ const accountSlice = createSlice({
       );
 
       console.log("Unenrolled from course:", courseId);
+    },
+    addEnrollment: (state, { payload: enrollment }) => {
+      state.enrollments.push(enrollment);
+    },
+    setEnrollments: (state, { payload: enrollements }) => {
+      state.enrollments = enrollements;
     }
   },
 });
-export const { setCurrentUser, signup, enrollCourse,unenrollCourse } = accountSlice.actions;
+export const { setCurrentUser, signup, enrollCourse, unenrollCourse, addEnrollment, setEnrollments} = accountSlice.actions;
 export default accountSlice.reducer;
 

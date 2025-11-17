@@ -10,6 +10,8 @@ import { IoMdSearch } from "react-icons/io";
 import { useParams } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../store";
+import { setAssignements } from "./reducer";
+import * as client from "../../client";
 import { useEffect } from "react";
 import Link from "next/link";
 
@@ -20,6 +22,17 @@ export default function Assignments() {
     const { assignments } = useSelector((state: RootState) => state.assignmentReducer);
     console.log("cid assignment: " + cid)
     console.log("current");
+    const dispatch = useDispatch();
+
+    const fetchAssignements = async () => {
+        const assignments = await client.findAssignementForCourse(cid as string);
+        dispatch(setAssignements(assignments));
+    };
+    useEffect(() => {
+        fetchAssignements();
+    }, []);
+
+    
 
     return (
         <div id="wd-assignments">
@@ -81,7 +94,7 @@ export default function Assignments() {
                         </div>
                     </div>
                     <ListGroup className="wd-lessons rounded-0">
-                            {/* {assignments
+                        {/* {assignments
                                 .filter((assignment) => assignment.course === cid)
                                 .map((assignment) => (
                                     <ListGroupItem 
@@ -104,7 +117,7 @@ export default function Assignments() {
                             </ListGroupItem> */}
 
                         {assignments
-                            .filter((assignment) => assignment.course === cid)
+                            // .filter((assignment) => assignment.course === cid)
                             .map((assignment) => (
                                 <Link
                                     key={assignment._id}
@@ -118,7 +131,7 @@ export default function Assignments() {
                                     >
                                         <BsGripVertical className="me-2 fs-3" />
                                         <LuNotebookPen className="text-success" /> {assignment.title}
-                                        <LessonControlButtons assignmentId={assignment._id} />
+                                        <LessonControlButtons assignmentId={assignment._id as string} />
                                         <p className="p-3 ps-1 me-6">
                                             <span className="text-danger fw-bold">Multiple Modules</span> |
                                             <span className="fw-bold"> Not available until </span> May 6 at 12:00am |

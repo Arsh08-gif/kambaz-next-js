@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { assignments } from "../../../Database";
+import assignments from "../../../Database/assignments";
 import { v4 as uuidv4 } from "uuid";
 
 export interface Assignment {
@@ -14,8 +14,9 @@ export interface Assignment {
 }
 
 const initialState = {
-    assignments: assignments as Assignment[],
+    // assignments: assignments as Assignment[],
     //assignments: assignments
+    assignments: [] as Assignment[]
 };
 
 const assignmentsSlice = createSlice({
@@ -63,8 +64,12 @@ const assignmentsSlice = createSlice({
                 a._id === assignmentId ? { ...a, editing: true } : a
             );
         },
+        setAssignements: (state, action) => {
+            state.assignments = action.payload;
+        },
+
     },
 });
-export const { addAssignment, deleteAssignment, updateAssignment } =
+export const { addAssignment, deleteAssignment, updateAssignment, setAssignements } =
     assignmentsSlice.actions;
 export default assignmentsSlice.reducer;

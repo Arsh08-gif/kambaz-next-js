@@ -1,66 +1,61 @@
 "use client";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useRouter } from "next/navigation";
+import { setCurrentUser } from "../reducer";
+import { redirect, useRouter } from "next/navigation";
 import Link from "next/link";
 import { FormControl } from "react-bootstrap";
-import { signup } from "../reducer";
+// import { signup } from "../reducer";
+import * as client from "../client";
 
 export default function Signup() {
+    type User = {
+        _id : string;
+        username: string;
+        password: string;
+        firstName?: string;
+    };
+    const [user, setUser] = useState<User>({
+        _id : Date.now().toString(),
+        username: "",
+        password: "",
+        firstName: "",
+    });
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [verifyPassword, setVerifyPassword] = useState("");
+    //const [verifyPassword, setVerifyPassword] = useState("");
     const [error, setError] = useState("");
 
     const dispatch = useDispatch();
     const router = useRouter();
 
-    const handleSignup = () => {
+    const handleSignup = async () => {
         console.log("inside signup");
-        
-        if (!username || !password || !verifyPassword) {
-            setError("All fields are required");
-            return;
-        }
+        console.log("user " + JSON.stringify(user));
+        const currentUser = await client.signup(user);
+        console.log("current user " + currentUser);
 
-        if (password !== verifyPassword) {
-            setError("Passwords do not match");
-            return;
-        }
+        dispatch(setCurrentUser(currentUser));
+        redirect("/Account/Profile");
 
-        const newUser = {
-            username,
-            password,
-            firstName: "",
-            lastName: "",
-            email: "",
-        };
 
-        dispatch(signup(newUser));
+        //dispatch(signup(newUser));
 
         //Redirect to signin
-        router.push("Signin");
+        //router.push("Signin");
     };
     return (
         <div id="wd-signup-screen">
             <h1>Sign up</h1>
             {error && <div className="alert alert-danger">{error}</div>}
-            <FormControl id="wd-username"
-                placeholder="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="mb-2" />
-            <FormControl id="wd-password"
-                placeholder="password" type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="mb-2" />
-            <FormControl id="wd-password"
-                placeholder="verify password" type="password"
-                value={verifyPassword}
-                onChange={(e) => setVerifyPassword(e.target.value)}
-                className="mb-2" />
-            <button
+            <FormControl value={user.username} onChange={(e) => setUser({ ...user, username: e.target.value })}
+                className="wd-username b-2" placeholder="username" />
+            <FormControl value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })}
+                className="wd-password mb-2" placeholder="password" type="password" />
+            <button onClick={handleSignup} className="wd-signup-btn btn btn-primary mb-2 w-100"> Sign up </button><br />
+            <Link href="/Account/Signin" className="wd-signin-link">Sign in</Link>
+
+            {/* <button
                 id="wd-signup-btn"
                 onClick={handleSignup}
                 className="btn btn-primary w-100 mb-2"
@@ -70,7 +65,7 @@ export default function Signup() {
             <Link id="wd-signin-btn"
                 href="Signin"
                 className="btn btn-primary w-100 mb-2">
-                Sign in </Link>
+                Sign in </Link> */}
         </div>);
 }
 

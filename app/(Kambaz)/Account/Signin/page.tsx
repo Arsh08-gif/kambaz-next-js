@@ -9,6 +9,8 @@ import * as db from "../../Database";
 import { FormControl, Button } from "react-bootstrap";
 import { log } from "console";
 import { RootState } from "../../store";
+import * as client from "../client";
+
 
 
 export default function Signin() {
@@ -23,7 +25,7 @@ export default function Signin() {
     console.log("credentials user " + credentials.username)
     console.log("credentials pwd " + credentials.password)
     const dispatch = useDispatch();
-    const users = useSelector((state: RootState) => state.accountReducer.users);
+    //const users = useSelector((state: RootState) => state.accountReducer.users);
     //const router = useRouter();
     // const signin = () => {
     //     const user = db.users.find(
@@ -40,12 +42,8 @@ export default function Signin() {
     //     //router.push("/Dashboard");
     // };
 
-    const signin = () => {
-        const user = users.find(
-            (u: User) =>
-                u.username === credentials.username &&
-                u.password === credentials.password
-        );
+    const signin = async () => {
+        const user =  await client.signin(credentials);
         console.log("user pwd : " + user?.password)
         console.log("user name : " + user?.username)
         console.log("signed in user: " + user)

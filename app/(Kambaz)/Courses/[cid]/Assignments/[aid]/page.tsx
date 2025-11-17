@@ -3,16 +3,28 @@ import { Button, Col, FormCheck, FormControl, FormLabel, FormSelect, Row } from 
 import { IoCalendarOutline } from "react-icons/io5";
 import { useParams, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { addAssignment, updateAssignment } from "../reducer";
+import { addAssignment, updateAssignment,setAssignements } from "../reducer";
 //import * as db from "../../../../Database";
+import * as client from "../../../client";
 import Link from "next/link";
 import { redirect } from "next/dist/client/components/navigation";
 import { useEffect, useState } from "react";
 import { title } from "process";
+import { v4 as uuidv4 } from 'uuid';
 import { RootState } from "../../../../store";
 
 
 export default function AssignmentEditor() {
+    interface Assignment {
+    _id: string;
+    title: string;
+    course: string;
+    description: string;
+    points: number;
+    available_date: string;
+    due_date: string;
+    until: string;
+}
     const { cid, aid } = useParams();
     console.log("aid assignment editor : " + aid)
     console.log("cid assignment editor : " + cid)
@@ -28,7 +40,7 @@ export default function AssignmentEditor() {
         title: existingAssignment?.title || "",
         description: existingAssignment?.description || "",
         points: existingAssignment?.points || 0,
-        course: cid,
+        course: cid as string,
         available_date: existingAssignment?.available_date || "",
         due_date: existingAssignment?.due_date || "",
         until: existingAssignment?.until || "",
@@ -40,17 +52,46 @@ export default function AssignmentEditor() {
         if (existingAssignment) setAssignment(existingAssignment);
     }, [existingAssignment]);
 
+    const onCreateAssignmentForCourse = async () => {
+        if (!cid) return;
+        const newAssignment = {
+                _id: uuidv4(),
+                title: assignment.title,
+                course: cid as string,
+                description: assignment.description || "",
+                points: assignment.points || 0,
+                available_date: assignment.available_date || "",
+                due_date: assignment.due_date || "",
+                until: assignment.until || "",
+            };
+        console.log(JSON.stringify(newAssignment));
+        const resultAssignement = await client.createAssingmentForCourse(cid as string, newAssignment);
+        dispatch(setAssignements([...assignments, resultAssignement]));
+    };  
+
+    const onUpdateAssignment = async (assignement : Assignment) => {
+    await client.updateAssignment(assignement);
+    const newAssignment = assignments.map((a: any) => a._id === assignement._id ? assignement : a );
+    dispatch(setAssignements(newAssignment));
+  };
+
+
     const handleChange = (field: string, value: string) => {
         setAssignment({ ...assignment, [field]: value });
     };
     const handleSave = () => {
         console.log("saving..");
-
         if (existingAssignment) {
-            dispatch(updateAssignment(assignment));
+            onUpdateAssignment(assignment);
         } else {
-            dispatch(addAssignment(assignment));
+            onCreateAssignmentForCourse();
         }
+
+        // if (existingAssignment) {
+        //     dispatch(updateAssignment(assignment));
+        // } else {
+        //     dispatch(addAssignment(assignment));
+        // }
         //redirect(`/Courses/${cid}/Assignments`);
         router.push(`/Courses/${cid}/Assignments`);
     };
