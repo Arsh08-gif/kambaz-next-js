@@ -1,20 +1,20 @@
-// import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-// //import db from "../Database";
-// import enrollments from "../../../../kambaz-node-server-app/Database/enrollments";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+//import db from "../Database";
+//import enrollments from "../../../../kambaz-node-server-app/Database/enrollments";
 
-// interface Enrollment {
-//   _id: string;
-//   user: string;
-//   course: string;
-// }
+interface Enrollment {
+  _id: string;
+  user: string;
+  course: string;
+}
 
-// interface EnrollmentsState {
-//   enrollments: Enrollment[];
-// }
+interface EnrollmentsState {
+  enrollments: Enrollment[];
+}
 
 // const initialState: EnrollmentsState = {
 //   // enrollments: db.enrollments,
-//   enrollments: enrollments,
+//   //enrollments: enrollments,
 // };
 
 // const enrollmentsSlice = createSlice({
@@ -50,5 +50,5 @@
 //   },
 // });
 
-// export const { enrollInCourse, unenrollFromCourse, setEnrollments } = enrollmentsSlice.actions;
-// export default enrollmentsSlice.reducer;
+//export const { enrollInCourse, unenrollFromCourse, setEnrollments } = enrollmentsSlice.actions;
+//export default enrollmentsSlice.reducer;
