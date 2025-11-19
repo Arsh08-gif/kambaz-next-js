@@ -38,7 +38,7 @@ export default function WorkingWithArrays() {
             <h3>Removing from an Array</h3>
             <a id="wd-remove-todo" className="btn btn-primary float-end" href={`${API}/${todo.id}/delete`}>
                 Remove Todo with ID = {todo.id} </a>
-            <FormControl value={todo.id} className="w-50" onChange={(e) => setTodo({ ...todo, id: e.target.value })} /><hr />
+            <FormControl defaultValue={todo.id} className="w-50" onChange={(e) => setTodo({ ...todo, id: e.target.value })} /><hr />
             <h3>Updating an Item in an Array</h3>
             <a href={`${API}/${todo.id}/title/${todo.title}`} className="btn btn-primary float-end">
                 Update Title</a>
