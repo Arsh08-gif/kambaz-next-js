@@ -36,6 +36,9 @@ export default function Profile() {
 
     const updateProfile = async () => {
         const updatedProfile = await client.updateUser(profile);
+        if(updatedProfile){
+            alert("profile updated!!")
+        }
         dispatch(setCurrentUser(updatedProfile));
     };
 
@@ -54,21 +57,27 @@ export default function Profile() {
                 <div>
                     <FormControl id="wd-username" className="mb-2"
                         defaultValue={profile.username}
+                        placeholder="Enter username"
                         onChange={(e) => setProfile({ ...profile, username: e.target.value })} />
                     <FormControl id="wd-password" className="mb-2"
                         defaultValue={profile.password}
+                        placeholder="Enter password"
                         onChange={(e) => setProfile({ ...profile, password: e.target.value })} />
                     <FormControl id="wd-firstname" className="mb-2"
                         defaultValue={profile.firstName}
+                        placeholder="Enter First Name"
                         onChange={(e) => setProfile({ ...profile, firstName: e.target.value })} />
                     <FormControl id="wd-lastname" className="mb-2"
                         defaultValue={profile.lastName}
+                        placeholder="Enter Last Name"
                         onChange={(e) => setProfile({ ...profile, lastName: e.target.value })} />
                     <FormControl id="wd-dob" className="mb-2" type="date"
                         defaultValue={profile.dob}
+                        placeholder="Enter dob"
                         onChange={(e) => setProfile({ ...profile, dob: e.target.value })} />
                     <FormControl id="wd-email" className="mb-2"
                         defaultValue={profile.email}
+                        placeholder="Enter email"
                         onChange={(e) => setProfile({ ...profile, email: e.target.value })} />
                     <select className="form-control mb-2" id="wd-role"
                         onChange={(e) => setProfile({ ...profile, role: e.target.value })} >

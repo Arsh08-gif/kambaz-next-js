@@ -25,13 +25,18 @@ export default function Signup() {
     const router = useRouter();
 
     const handleSignup = async () => {
-        console.log("inside signup");
-        console.log("user " + JSON.stringify(user));
-        const currentUser = await client.signup(user);
-        console.log("current user signedup" + JSON.stringify(currentUser));
+        try {
+            console.log("inside signup");
+            console.log("user " + JSON.stringify(user));
+            const currentUser = await client.signup(user);
+            console.log("current user signedup" + JSON.stringify(currentUser));
 
-        dispatch(setCurrentUser(currentUser));
-        redirect("/Account/Profile");
+            dispatch(setCurrentUser(currentUser));
+            redirect("/Account/Profile");
+        }
+        catch(err:any){
+            alert(JSON.stringify(err.response?.data))
+        }
     };
     return (
         <div id="wd-signup-screen">
