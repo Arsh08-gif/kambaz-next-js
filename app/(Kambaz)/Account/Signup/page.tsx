@@ -10,17 +10,12 @@ import * as client from "../client";
 
 export default function Signup() {
     type User = {
-        _id : string;
+        _id: string;
         username: string;
         password: string;
         firstName?: string;
     };
-    const [user, setUser] = useState<User>({
-        _id : Date.now().toString(),
-        username: "",
-        password: "",
-        firstName: "",
-    });
+    const [user, setUser] = useState<any>({});
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     //const [verifyPassword, setVerifyPassword] = useState("");
@@ -33,16 +28,10 @@ export default function Signup() {
         console.log("inside signup");
         console.log("user " + JSON.stringify(user));
         const currentUser = await client.signup(user);
-        console.log("current user " + currentUser);
+        console.log("current user signedup" + JSON.stringify(currentUser));
 
         dispatch(setCurrentUser(currentUser));
         redirect("/Account/Profile");
-
-
-        //dispatch(signup(newUser));
-
-        //Redirect to signin
-        //router.push("Signin");
     };
     return (
         <div id="wd-signup-screen">
@@ -53,7 +42,7 @@ export default function Signup() {
             <FormControl value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })}
                 className="wd-password mb-2" placeholder="password" type="password" />
             <button onClick={handleSignup} className="wd-signup-btn btn btn-primary mb-2 w-100"> Sign up </button><br />
-            <Link href="/Account/Signin" className="wd-signin-link">Sign in</Link>
+            <Link href="/Account/Signin" id="wd-signin-link" className="btn btn-primary w-100 mb-2">Sign in</Link>
 
             {/* <button
                 id="wd-signup-btn"

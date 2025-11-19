@@ -50,28 +50,57 @@ export default function Dashboard() {
     });
 
     const onAddNewCourse = async () => {
-        const newCourse = await client.createCourse(course);
-        dispatch(setCourses([...courses, newCourse]));
+        // const newCourse = await client.createCourse(course);
+        // dispatch(setCourses([...courses, newCourse]));
+        const response = await client.createCourse(course);
+        console.log("create course response " + JSON.stringify(response));
+        dispatch(setCourses([...courses, response.course]));
+        dispatch(addEnrollment(response.enrollment))
     };
 
     const fetchCourses = async () => {
         try {
             if (showAllCourses) {
+                console.log("all courses " + showAllCourses);
                 const allCourses = await client.fetchAllCourses();
+                console.log("all courses " + JSON.stringify(allCourses));
                 dispatch(setCourses(allCourses));
-            } else {
-                const courses = await client.findMyCourses();
-                dispatch(setCourses(courses));
-            }
 
-            if (currentUser) {
+                // if (currentUser) {
+                //     const userEnrollments = await client.getUserEnrollments(currentUser._id);
+                //     console.log("enrollements " + JSON.stringify(userEnrollments));
+
+                //     dispatch(setEnrollments(userEnrollments));
+                // }
+            }
+            else {
+                if (!currentUser) {
+                    dispatch(setCourses([]));
+                    dispatch(setEnrollments([]));
+                    return;
+                }
                 const userEnrollments = await client.getUserEnrollments(currentUser._id);
-                console.log("enrollements " + JSON.stringify(userEnrollments));
+                console.log("userEnrollments " + JSON.stringify(userEnrollments));
                 
                 dispatch(setEnrollments(userEnrollments));
-            } else {
-                dispatch(setEnrollments([]));
+                const courseIds = userEnrollments.map((e: any) => e.course);
+                console.log("enrollement courses ids " + courseIds);
+                const myCourses = await client.fetchCoursesByIds(courseIds);
+                console.log("enrolled courses " + myCourses); 
+                dispatch(setCourses(myCourses));
+                //const courses = await client.findMyCourses();
+                //dispatch(setCourses(courses));
             }
+
+            // if (currentUser) {
+            //     const userEnrollments = await client.getUserEnrollments(currentUser._id);
+            //     console.log("enrollements " + JSON.stringify(userEnrollments));
+
+            //     dispatch(setEnrollments(userEnrollments));
+            // } 
+            // else {
+            //     dispatch(setEnrollments([]));
+            // }
         } catch (error) {
             console.error("fetch error " + error);
         }
@@ -88,28 +117,32 @@ export default function Dashboard() {
 
     useEffect(() => {
         fetchCourses();
-    }, [currentUser,showAllCourses]);
+    }, [currentUser, showAllCourses]);
 
     const isEnrolled = (courseId: string) => {
+        //console.log("inside IsEnrolled ");
+        //console.log("current user isEnrolled " + currentUser);
+        //console.log("course id isEnrolled " + courseId);
+
         if (!currentUser) return false;
         return enrollments.some(
-            (enrollment) => enrollment.user === currentUser._id 
-            && enrollment.course === courseId
+            (enrollment) => enrollment.user === currentUser._id
+                && enrollment.course === courseId
         );
     };
 
     const onEnroll = async (courseId: string) => {
         console.log("inside onEnroll");
-        
+
         if (!currentUser) {
             alert("Please sign in to enroll in courses");
             return;
         }
         const response = await client.enrollCourse(currentUser._id, courseId);
-        console.log("Enrollment response:", response);
+        console.log("Enrollment course :", JSON.stringify(response));
         dispatch(addEnrollment(response))
         console.log("isEnrolled " + isEnrolled(courseId));
-        
+
     }
     // const handleEnroll = (courseId: string) => {
     //     if (!currentUser) {
@@ -139,9 +172,10 @@ export default function Dashboard() {
         console.log("Unenrollment response:", JSON.stringify(response));
         dispatch(setEnrollments(response));
         // dispatch(addEnrollment(response))
-         console.log("isEnrolled " + isEnrolled(courseId));
+        console.log("isEnrolled " + isEnrolled(courseId));
 
     }
+
     const onDeleteCourse = async (courseId: string) => {
         console.log("insdie deleteCourse");
         const status = await client.deleteCourse(courseId);

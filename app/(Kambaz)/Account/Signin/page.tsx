@@ -42,14 +42,16 @@ export default function Signin() {
     // };
 
     const signin = async () => {
-        const user =  await client.signin(credentials);
+        const user = await client.signin(credentials);
         console.log("user pwd : " + user?.password)
         console.log("user name : " + user?.username)
         console.log("signed in user: " + user)
-        if (!user) return;
+        if (!user) {
+            alert("User not found. Please sign up first.");
+            return;
+        }
         dispatch(setCurrentUser(user));
         redirect("/Dashboard");
-        //router.push("/Dashboard");
     };
 
     return (

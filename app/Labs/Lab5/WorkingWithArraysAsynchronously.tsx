@@ -40,6 +40,7 @@ export default function WorkingWithArraysAsynchronously() {
 
     const createNewTodo = async () => {
         const todos = await client.createNewTodo();
+        console.log("todos " + todos);
         setTodos(todos);
     };
     const postNewTodo = async () => {

@@ -40,6 +40,8 @@ const coursesSlice = createSlice({
     // },
     setCourses: (state, { payload: courses }) => {
       state.courses = courses;
+      console.log("courses state after set courses " + JSON.stringify(state.courses));
+      
     }
   },
 });

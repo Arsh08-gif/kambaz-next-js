@@ -20,9 +20,9 @@ export const signin = async (credentials: Credentials) => {
         const response = await axiosWithCredentials.post(`${USERS_API}/signin`, credentials);
         return response.data;
     }
-    catch (error) {
-        console.error("Signin error:", error);
-        throw error;
+    catch (err : any) {
+        console.error("Signin error:", err.response?.data);
+        throw err;
     }
 };
 export const signup = async (user: User) => {
@@ -30,9 +30,9 @@ export const signup = async (user: User) => {
         const response = await axiosWithCredentials.post(`${USERS_API}/signup`, user);
         return response.data;
     }
-    catch (err) {
-        //console.error("Signup error:", err.response?.data);
-        console.error("Signup error:", err);
+    catch (err : any) {
+        console.error("Signup error:", err.response?.data);
+        //console.error("Signup error:", err);
         throw err;
     }
 };

@@ -40,6 +40,7 @@ export const removeTodo = async (todo: Todo) => {
 export const createNewTodo = async () => {
     // const response = await axios.get(`${TODOS_API}/create`);
     const response = await axios.get(`${HTTP_SERVER}/lab5/todos/create`);
+    console.log("response " + JSON.stringify(response));
     return response.data;
 };
 export const postNewTodo = async (todo: NewTodo) => {

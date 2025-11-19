@@ -52,16 +52,16 @@ export const fetchAllCourses = async () => {
   const { data } = await axios.get(COURSES_API);
   return data;
 };
-export const findMyCourses = async () => {
-  try {
-    const { data } = await axiosWithCredentials.get(`${USERS_API}/current/courses`);
-    return data;
-  }
-  catch (err) {
-    console.log("findMyCourse err " + err);
+// export const findMyCourses = async () => {
+//   try {
+//     const { data } = await axiosWithCredentials.get(`${USERS_API}/current/courses`);
+//     return data;
+//   }
+//   catch (err:any) {
+//     console.log("findMyCourse err " + err.data);
 
-  }
-};
+//   }
+// };
 export const createCourse = async (course: Course) => {
   const { data } = await axiosWithCredentials.post(`${USERS_API}/current/courses`, course);
   return data;
@@ -103,6 +103,11 @@ export const createModuleForCourse = async (courseId: string, module: Module) =>
     `${COURSES_API}/${courseId}/modules`,
     module
   );
+  return response.data;
+};
+
+export const fetchCoursesByIds = async (ids: string[]) => {
+  const response = await axiosWithCredentials.post(`${COURSES_API}/batch`, { ids });
   return response.data;
 };
 

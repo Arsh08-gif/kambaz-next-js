@@ -42,7 +42,7 @@ const accountSlice = createSlice({
   initialState,
   reducers: {
     setCurrentUser: (state, action) => {
-      console.log("current user : " + state.currentUser);
+      console.log("current user to set : " + JSON.stringify(state.currentUser));
       state.currentUser = action.payload;
       console.log("current user after state : " + JSON.stringify(state.currentUser));
 
@@ -108,9 +108,13 @@ const accountSlice = createSlice({
     },
     addEnrollment: (state, { payload: enrollment }) => {
       state.enrollments.push(enrollment);
+      console.log("enrollment state after adding one enrollment " + JSON.stringify(state.enrollments));
+      
     },
     setEnrollments: (state, { payload: enrollements }) => {
       state.enrollments = enrollements;
+      console.log("enrollement state after set enrollments " + JSON.stringify(state.enrollments));
+      
     }
   },
 });
