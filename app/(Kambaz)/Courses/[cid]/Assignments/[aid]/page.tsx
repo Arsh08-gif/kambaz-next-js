@@ -53,6 +53,8 @@ export default function AssignmentEditor() {
     }, [existingAssignment]);
 
     const onCreateAssignmentForCourse = async () => {
+        console.log("inside create assingment");
+        console.log("cid " + cid);
         if (!cid) return;
         const newAssignment = {
             _id: uuidv4(),
@@ -70,6 +72,7 @@ export default function AssignmentEditor() {
     };
 
     const onUpdateAssignment = async (assignement: Assignment) => {
+        console.log("inside update assingment");
         await client.updateAssignment(assignement);
         const newAssignment = assignments.map((a: Assignment) => a._id === assignement._id ? assignement : a);
         dispatch(setAssignements(newAssignment));

@@ -12,18 +12,18 @@ import { enrollCourse, unenrollCourse, addEnrollment, setEnrollments } from "../
 import { json } from "stream/consumers";
 
 export default function Dashboard() {
-    interface Course {
-        _id: string;
-        name: string;
-        number: string;
-        image: string;
-        startDate: string;
-        endDate: string;
-        department: string;
-        credits: number;
-        description: string;
-        color?: string;
-    }
+    // interface Course {
+    //     _id: string;
+    //     name: string;
+    //     number: string;
+    //     image: string;
+    //     startDate: string;
+    //     endDate: string;
+    //     department: string;
+    //     credits: number;
+    //     description: string;
+    //     color?: string;
+    // }
     //const courses = db.courses;
     const { courses } = useSelector((state: RootState) => state.coursesReducer);
     const { currentUser } = useSelector((state: RootState) => state.accountReducer);
@@ -37,7 +37,18 @@ export default function Dashboard() {
     const dispatch = useDispatch();
 
     const [showAllCourses, setShowAllCourses] = useState(false);
-    const [course, setCourse] = useState<Course>({
+    // const [course, setCourse] = useState<Course>({
+    //     _id: "0",
+    //     name: "New Course",
+    //     number: "New Number",
+    //     startDate: "2023-09-10",
+    //     endDate: "2023-12-15",
+    //     description: "New Description",
+    //     image: "",
+    //     department: "",
+    //     credits: 0
+    // });
+    const [course, setCourse] = useState<any>({
         _id: "0",
         name: "New Course",
         number: "New Number",
@@ -79,15 +90,18 @@ export default function Dashboard() {
                     dispatch(setEnrollments([]));
                     return;
                 }
+                const userCourses = await client.findCoursesForEnrolledUser(currentUser._id);
                 const userEnrollments = await client.getUserEnrollments(currentUser._id);
+                console.log("userCourses " + JSON.stringify(userCourses));
                 console.log("userEnrollments " + JSON.stringify(userEnrollments));
-                
+
                 dispatch(setEnrollments(userEnrollments));
-                const courseIds = userEnrollments.map((e: any) => e.course);
-                console.log("enrollement courses ids " + courseIds);
-                const myCourses = await client.fetchCoursesByIds(courseIds);
-                console.log("enrolled courses " + myCourses); 
-                dispatch(setCourses(myCourses));
+                // const courseIds = userEnrollments.map((e: any) => e.course);
+                // console.log("enrollement courses ids " + courseIds);
+                // const myCourses = await client.fetchCoursesByIds(courseIds);
+                // console.log("enrolled courses " + myCourses); 
+                // dispatch(setCourses(myCourses));
+                dispatch(setCourses(userCourses));
                 //const courses = await client.findMyCourses();
                 //dispatch(setCourses(courses));
             }
@@ -138,7 +152,8 @@ export default function Dashboard() {
             alert("Please sign in to enroll in courses");
             return;
         }
-        const response = await client.enrollCourse(currentUser._id, courseId);
+        //const response = await client.enrollCourse(currentUser._id, courseId);
+        const response = await client.enrollIntoCourse(currentUser._id, courseId);
         console.log("Enrollment course :", JSON.stringify(response));
         dispatch(addEnrollment(response))
         console.log("isEnrolled " + isEnrolled(courseId));
@@ -168,12 +183,15 @@ export default function Dashboard() {
             alert("Please sign in to unenroll in courses");
             return;
         }
-        const response = await client.unEnrollCourse(currentUser._id, courseId);
+        // const response = await client.unEnrollCourse(currentUser._id, courseId);
+        const response = await client.unenrollFromCourse(currentUser._id, courseId);
         console.log("Unenrollment response:", JSON.stringify(response));
-        dispatch(setEnrollments(response));
+        if (response.acknowledge === "true") {
+            const userEnrollments = await client.getUserEnrollments(currentUser._id);
+            console.log("userEnrollments after unenroll " + JSON.stringify(userEnrollments));
+            dispatch(setEnrollments(userEnrollments));
+        }
         // dispatch(addEnrollment(response))
-        console.log("isEnrolled " + isEnrolled(courseId));
-
     }
 
     const onDeleteCourse = async (courseId: string) => {

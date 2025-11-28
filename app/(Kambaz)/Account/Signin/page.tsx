@@ -45,7 +45,7 @@ export default function Signin() {
         const user = await client.signin(credentials);
         console.log("user pwd : " + user?.password)
         console.log("user name : " + user?.username)
-        console.log("signed in user: " + user)
+        console.log("signed in user: " + JSON.stringify(user))
         if (!user) {
             alert("User not found. Please sign up first.");
             return;

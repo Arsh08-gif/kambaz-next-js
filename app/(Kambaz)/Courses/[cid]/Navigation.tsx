@@ -34,7 +34,7 @@ export default function CourseNavigation({ course }: { course: { _id:string,name
             label: "Quizzes",
         },
         {
-            path: `/Courses/${course?._id}/People/Table`,
+            path: `/Courses/${course?._id}/People`,
             id: "wd-course-people-link",
             label: "People",
         },

@@ -32,7 +32,7 @@ interface Module {
 
 
 export default function Modules() {
-    const { cid } = useParams();
+    const { cid } = useParams<{ cid: string }>();
     //const [modules, setModules] = useState<any[]>(db.modules);
     const [moduleName, setModuleName] = useState("");
     const { modules } = useSelector((state: RootState) => state.modulesReducer);
@@ -75,12 +75,13 @@ export default function Modules() {
         dispatch(setModules([...modules, responseMod]));
     };
     const onRemoveModule = async (moduleId: string) => {
-        await client.deleteModule(moduleId);
-        dispatch(setModules(modules.filter((m: Module) => m._id !== moduleId)));
+        await client.deleteModule(cid, moduleId);
+        dispatch(setModules(modules.filter((m: any) => m._id !== moduleId)));
     };
 
     const onUpdateModule = async (module: Module) => {
-        await client.updateModule(module);
+        const res = await client.updateModule(cid,module);
+        console.log("update mod res " + JSON.stringify(res));
         const newModules = modules.map((m: Module) => m._id === module._id ? module : m);
         dispatch(setModules(newModules));
     };

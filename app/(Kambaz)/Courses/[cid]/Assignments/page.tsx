@@ -26,13 +26,14 @@ export default function Assignments() {
 
     const fetchAssignements = async () => {
         const assignments = await client.findAssignementForCourse(cid as string);
+        console.log("assignments fetched " + assignments);
+        
         dispatch(setAssignements(assignments));
     };
     useEffect(() => {
         fetchAssignements();
     }, []);
 
-    
 
     return (
         <div id="wd-assignments">
