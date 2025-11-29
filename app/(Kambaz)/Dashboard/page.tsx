@@ -186,7 +186,7 @@ export default function Dashboard() {
         // const response = await client.unEnrollCourse(currentUser._id, courseId);
         const response = await client.unenrollFromCourse(currentUser._id, courseId);
         console.log("Unenrollment response:", JSON.stringify(response));
-        if (response.acknowledge === "true") {
+        if (response.acknowledged === true) {
             const userEnrollments = await client.getUserEnrollments(currentUser._id);
             console.log("userEnrollments after unenroll " + JSON.stringify(userEnrollments));
             dispatch(setEnrollments(userEnrollments));
