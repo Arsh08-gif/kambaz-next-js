@@ -18,9 +18,7 @@ export default function PeopleDetails({ uid, onClose }: { uid: string | null; on
         const updatedUser = {
             ...user,
             firstName,
-            lastName,
-            email,
-            role
+            lastName
         };
         await client.updateUser(updatedUser);
         setUser(updatedUser);
@@ -192,8 +190,8 @@ export default function PeopleDetails({ uid, onClose }: { uid: string | null; on
                     </select>
                 )}
             </div> */}
-            <b>Role:</b> <span className="wd-login-id">{user.role}</span>
-            <b>Email:</b> <span className="wd-login-id">{user.email}</span>
+            <b>Role:</b> <span className="wd-login-id">{user.role}</span><br/>
+            <b>Email:</b> <span className="wd-login-id">{user.email}</span><br/>
             <b>Login ID:</b> <span className="wd-login-id">{user.loginId}</span> <br />
             <b>Section:</b>         <span className="wd-section">       {user.section}      </span> <br />
             <b>Total Activity:</b>  <span className="wd-total-activity">{user.totalActivity}</span>
