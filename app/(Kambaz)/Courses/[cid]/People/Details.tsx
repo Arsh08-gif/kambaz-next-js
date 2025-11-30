@@ -20,7 +20,7 @@ export default function PeopleDetails({ uid, onClose }: { uid: string | null; on
             firstName,
             lastName,
             email: email,
-            role: role 
+            role: role
         };
         await client.updateUser(updatedUser);
         setUser(updatedUser);
@@ -50,7 +50,7 @@ export default function PeopleDetails({ uid, onClose }: { uid: string | null; on
                 <IoCloseSharp className="fs-1" /> </button>
             <div className="text-center mt-2"> <FaUserCircle className="text-secondary me-2 fs-1" />
             </div><hr />
-            <div className="text-danger fs-4 wd-name">
+            {/* <div className="text-danger fs-4 wd-name">
                 {!editing && (
                     <FaPencil onClick={() => setEditing(true)}
                         className="float-end fs-5 mt-2 wd-edit" />)}
@@ -71,7 +71,6 @@ export default function PeopleDetails({ uid, onClose }: { uid: string | null; on
                         }} />
                 )}
             </div>
-            <b>Roles:</b>           <span className="wd-roles">         {user.role}         </span> <br />
             <b>Login ID:</b>        <span className="wd-login-id">      {user.loginId}      </span> <br />
             <div>
                 {!editing && (
@@ -121,7 +120,79 @@ export default function PeopleDetails({ uid, onClose }: { uid: string | null; on
                         <option value="ADMIN">Administrators</option>
                     </select>
                 )}
+            </div> */}
+
+            <div className="text-danger fs-4 wd-name">
+                {/* Single edit/save button for all fields */}
+                {!editing && (
+                    <FaPencil onClick={() => setEditing(true)}
+                        className="float-end fs-5 mt-2 wd-edit" />
+                )}
+                {editing && (
+                    <FaCheck onClick={() => saveUser()}
+                        className="float-end fs-5 mt-2 me-2 wd-save" />
+                )}
+
+                {/* Name field */}
+                {!editing && (
+                    <div className="wd-name" onClick={() => setEditing(true)}>
+                        {user.firstName} {user.lastName}
+                    </div>
+                )}
+                {editing && (
+                    <FormControl
+                        className="w-50 wd-edit-name mb-2"
+                        value={name || `${user.firstName} ${user.lastName}`}
+                        onChange={(e) => setName(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") { saveUser(); }
+                        }}
+                    />
+                )}
             </div>
+
+            {/* Email field */}
+            <div>
+                {!editing && (
+                    <div className="wd-name" onClick={() => setEditing(true)}>
+                        <b>Email:</b> <span className="wd-login-id">{user.email}</span>
+                    </div>
+                )}
+                {editing && (
+                    <FormControl
+                        type="email"
+                        className="w-50 wd-edit-email mb-2"
+                        placeholder="enter email"
+                        value={email || user.email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") { saveUser(); }
+                        }}
+                    />
+                )}
+            </div>
+
+            {/* Role field */}
+            <div>
+                {!editing && (
+                    <div className="wd-name" onClick={() => setEditing(true)}>
+                        <b>Role:</b> <span className="wd-login-id">{user.role}</span>
+                    </div>
+                )}
+                {editing && (
+                    <select
+                        value={role || user.role}
+                        onChange={(e) => setRole(e.target.value)}
+                        className="form-select w-50 wd-edit-role mb-2"
+                    >
+                        <option value="STUDENT">Students</option>
+                        <option value="TA">Assistants</option>
+                        <option value="FACULTY">Faculty</option>
+                        <option value="ADMIN">Administrators</option>
+                    </select>
+                )}
+            </div>
+            <b>Login ID:</b> <span className="wd-login-id">{user.loginId}</span> <br />
             <b>Section:</b>         <span className="wd-section">       {user.section}      </span> <br />
             <b>Total Activity:</b>  <span className="wd-total-activity">{user.totalActivity}</span>
 
