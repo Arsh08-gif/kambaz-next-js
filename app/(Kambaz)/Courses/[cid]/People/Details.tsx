@@ -120,34 +120,24 @@ export default function PeopleDetails({ uid, onClose }: { uid: string | null; on
                 )}
             </div> */}
 
-            <div className="text-danger fs-4 wd-name">
-                {/* Single edit/save button for all fields */}
-                {!editing && (
-                    <FaPencil onClick={() => setEditing(true)}
-                        className="float-end fs-5 mt-2 wd-edit" />
-                )}
-                {editing && (
-                    <FaCheck onClick={() => saveUser()}
-                        className="float-end fs-5 mt-2 me-2 wd-save" />
-                )}
+            {!editing && (
+                <FaPencil onClick={() => setEditing(true)}
+                    className="float-end fs-5 mt-2 wd-edit" />)}
+            {editing && (
+                <FaCheck onClick={() => saveUser()}
+                    className="float-end fs-5 mt-2 me-2 wd-save" />)}
+            {!editing && (
+                <div className="wd-name"
+                    onClick={() => setEditing(true)}>
+                    {user.firstName} {user.lastName}</div>)}
+            {user && editing && (
+                <FormControl className="w-50 wd-edit-name"
+                    defaultValue={`${user.firstName} ${user.lastName}`}
+                    onChange={(e) => setName(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") { saveUser(); }
+                    }} />)}
 
-                {/* Name field */}
-                {!editing && (
-                    <div className="wd-name" onClick={() => setEditing(true)}>
-                        {user.firstName} {user.lastName}
-                    </div>
-                )}
-                {editing && (
-                    <FormControl
-                        className="w-50 wd-edit-name mb-2"
-                        value={name || `${user.firstName} ${user.lastName}`}
-                        onChange={(e) => setName(e.target.value)}
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter") { saveUser(); }
-                        }}
-                    />
-                )}
-            </div>
 
             {/* Email field */}
             {/* <div>
@@ -190,8 +180,8 @@ export default function PeopleDetails({ uid, onClose }: { uid: string | null; on
                     </select>
                 )}
             </div> */}
-            <b>Role:</b> <span className="wd-login-id">{user.role}</span><br/>
-            <b>Email:</b> <span className="wd-login-id">{user.email}</span><br/>
+            <b>Role:</b> <span className="wd-login-id">{user.role}</span><br />
+            <b>Email:</b> <span className="wd-login-id">{user.email}</span><br />
             <b>Login ID:</b> <span className="wd-login-id">{user.loginId}</span> <br />
             <b>Section:</b>         <span className="wd-section">       {user.section}      </span> <br />
             <b>Total Activity:</b>  <span className="wd-total-activity">{user.totalActivity}</span>
