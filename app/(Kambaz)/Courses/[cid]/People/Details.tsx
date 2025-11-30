@@ -152,7 +152,7 @@ export default function PeopleDetails({ uid, onClose }: { uid: string | null; on
             </div>
 
             {/* Email field */}
-            <div>
+            {/* <div>
                 {!editing && (
                     <div className="wd-name" onClick={() => setEditing(true)}>
                         <b>Email:</b> <span className="wd-login-id">{user.email}</span>
@@ -170,10 +170,10 @@ export default function PeopleDetails({ uid, onClose }: { uid: string | null; on
                         }}
                     />
                 )}
-            </div>
+            </div> */}
 
             {/* Role field */}
-            <div>
+            {/* <div>
                 {!editing && (
                     <div className="wd-name" onClick={() => setEditing(true)}>
                         <b>Role:</b> <span className="wd-login-id">{user.role}</span>
@@ -191,7 +191,9 @@ export default function PeopleDetails({ uid, onClose }: { uid: string | null; on
                         <option value="ADMIN">Administrators</option>
                     </select>
                 )}
-            </div>
+            </div> */}
+            <b>Role:</b> <span className="wd-login-id">{user.role}</span>
+            <b>Email:</b> <span className="wd-login-id">{user.email}</span>
             <b>Login ID:</b> <span className="wd-login-id">{user.loginId}</span> <br />
             <b>Section:</b>         <span className="wd-section">       {user.section}      </span> <br />
             <b>Total Activity:</b>  <span className="wd-total-activity">{user.totalActivity}</span>
