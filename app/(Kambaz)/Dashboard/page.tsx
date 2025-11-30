@@ -50,11 +50,11 @@ export default function Dashboard() {
     // });
     const [course, setCourse] = useState<any>({
         _id: "0",
-        name: "New Course",
+        name: "",
         number: "New Number",
         startDate: "2023-09-10",
         endDate: "2023-12-15",
-        description: "New Description",
+        description: "",
         image: "",
         department: "",
         credits: 0
@@ -67,6 +67,7 @@ export default function Dashboard() {
         console.log("create course response " + JSON.stringify(response));
         dispatch(setCourses([...courses, response.course]));
         dispatch(addEnrollment(response.enrollment))
+        setCourse({ name: "", description: "" });
     };
 
     const fetchCourses = async () => {
@@ -127,6 +128,7 @@ export default function Dashboard() {
             if (c._id === course._id) { return course; }
             else { return c; }
         })));
+        setCourse({ name: "", description: "" });
     };
 
     useEffect(() => {
@@ -226,8 +228,10 @@ export default function Dashboard() {
             </h5>
             <br />
             <FormControl value={course.name} className="mb-2"
+                placeholder="Enter course name"
                 onChange={(e) => setCourse({ ...course, name: e.target.value })} />
             <FormControl value={course.description} aria-rowspan={3}
+                placeholder="Enter course description"
                 onChange={(e) => setCourse({ ...course, description: e.target.value })} />
 
             <hr />
