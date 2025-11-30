@@ -46,13 +46,9 @@ export default function Signin() {
         console.log("user pwd : " + user?.password)
         console.log("user name : " + user?.username)
         console.log("signed in user: " + JSON.stringify(user))
-        if (!user) {
-            alert("User not found. Please sign up first.");
-            return;
-        }
         dispatch(setCurrentUser(user));
         redirect("/Dashboard");
-    };
+    }
 
     return (
         <div id="wd-signin-screen">
