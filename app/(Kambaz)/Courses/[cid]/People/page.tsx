@@ -12,6 +12,8 @@ export default function People() {
         try {
             if (!cid) return;
             const enrolledUsers = await client.findUsersForCourse(cid as string);
+            console.log("people table " + JSON.stringify(enrolledUsers));
+            
             setUsers(enrolledUsers);
         } catch (error) {
             console.error("Error fetching users:", error);
