@@ -19,8 +19,8 @@ export default function PeopleDetails({ uid, onClose }: { uid: string | null; on
             ...user,
             firstName,
             lastName,
-            email: email,
-            role: role
+            email,
+            role
         };
         await client.updateUser(updatedUser);
         setUser(updatedUser);
