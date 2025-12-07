@@ -16,9 +16,9 @@ export default function LessonControlButtons({ assignmentId }: { assignmentId: s
         course: string;
         description: string;
         points: number;
-        available_date: string;
-        due_date: string;
-        until: string;
+        available_date: Date;
+        due_date: Date;
+        until: Date;
     }
     const dispatch = useDispatch();
     const { assignments } = useSelector((state: RootState) => state.assignmentReducer);
