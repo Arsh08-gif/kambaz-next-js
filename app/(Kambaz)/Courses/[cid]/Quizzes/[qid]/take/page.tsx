@@ -2,7 +2,8 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Button, Container, Card, Form, Alert, ProgressBar } from "react-bootstrap";
+import { toast, ToastContainer } from 'react-toastify';
+import { Button, Container, Card, Form, Alert, ProgressBar, ListGroup } from "react-bootstrap";
 import * as client from "../../../../client";
 import { RootState } from "../../../../../store";
 
@@ -19,7 +20,8 @@ export default function TakeQuiz() {
     const [totalAttempts, setTotalAttempts] = useState(0);
     const [startTime] = useState(new Date());
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [showOneAtATime, setShowOneAtATime] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+
 
     useEffect(() => {
         fetchQuizData();
@@ -37,7 +39,6 @@ export default function TakeQuiz() {
             setQuiz(quizData);
             setQuestions(questionsData);
             setTotalAttempts(attemptInfo.totalAttempts);
-            setShowOneAtATime(quizData.oneQuestionAtATime);
 
             // Check if student can take quiz
             if (quizData.multipleAttempts) {
@@ -60,11 +61,23 @@ export default function TakeQuiz() {
         });
     };
 
+    const jumpToQuestion = (index: number) => {
+        setCurrentQuestionIndex(index);
+    };
+
     const handleSubmit = async () => {
         // Validate all questions are answered
         const unanswered = questions.filter(q => !answers[q._id]);
         if (unanswered.length > 0) {
-            alert(`Please answer all questions. ${unanswered.length} question(s) remaining.`);
+            toast.error(`Please answer all questions. ${unanswered.length} question(s) remaining.`, {
+                position: "top-center",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
+            //alert(`Please answer all questions. ${unanswered.length} question(s) remaining.`);
             return;
         }
         if (!currentUser) return;
@@ -89,6 +102,7 @@ export default function TakeQuiz() {
             console.error("Error submitting quiz:", error);
             alert("Failed to submit quiz");
         }
+        setIsSubmitted(true);
     };
 
     if (loading) {
@@ -113,6 +127,7 @@ export default function TakeQuiz() {
 
     return (
         <Container className="mt-4">
+            <ToastContainer />
             {/* Quiz Header */}
             <Card className="mb-4">
                 <Card.Body>
@@ -139,11 +154,55 @@ export default function TakeQuiz() {
             </Card>
 
             <div>
-                <ProgressBar
-                    now={(currentQuestionIndex + 1) / questions.length * 100}
-                    label={`Question ${currentQuestionIndex + 1} of ${questions.length}`}
-                    className="mb-3"
-                />
+
+                {!isSubmitted && (
+                    <div
+                        className="border rounded p-3 bg-light"
+                        style={{
+                            width: '280px',
+                            height: 'fit-content',
+                            position: 'sticky',
+                            top: '20px'
+                        }}
+                    >
+                        <h5 className="mb-3">Quiz Navigation</h5>
+                        <p className="small text-muted mb-3">
+                            Click on any question to jump to it
+                        </p>
+                        <ListGroup>
+                            {questions.map((question, index) => (
+                                <ListGroup.Item
+                                    key={question._id}
+                                    action
+                                    active={currentQuestionIndex === index}
+                                    onClick={() => jumpToQuestion(index)}
+                                    className="d-flex justify-content-between align-items-center"
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    <span>
+                                        <strong>Question {index + 1}</strong>
+                                        <br />
+                                        <small className="text-muted">{question.points} pts</small>
+                                    </span>
+                                    {answers[question._id] ? (
+                                        <span className="badge bg-success">✓</span>
+                                    ) : (
+                                        <span className="badge bg-secondary">-</span>
+                                    )}
+                                </ListGroup.Item>
+                            ))}
+                        </ListGroup>
+
+                        {/* Progress Summary */}
+                        <div className="mt-3 p-2 bg-white rounded border">
+                            <small className="text-muted">Progress:</small>
+                            <div className="d-flex justify-content-between">
+                                <strong>{Object.keys(answers).length} / {questions.length}</strong>
+                                <span className="text-muted">Answered</span>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 <Card className="mb-4">
                     <Card.Body>
@@ -173,62 +232,6 @@ export default function TakeQuiz() {
                     )}
                 </div>
             </div>
-
-            {/* {showOneAtATime ? (
-                <div>
-                    <ProgressBar 
-                        now={(currentQuestionIndex + 1) / questions.length * 100} 
-                        label={`Question ${currentQuestionIndex + 1} of ${questions.length}`}
-                        className="mb-3"
-                    />
-                    
-                    <Card className="mb-4">
-                        <Card.Body>
-                            {renderQuestion(questions[currentQuestionIndex])}
-                        </Card.Body>
-                    </Card>
-
-                    <div className="d-flex justify-content-between">
-                        <Button
-                            variant="secondary"
-                            onClick={() => setCurrentQuestionIndex(currentQuestionIndex - 1)}
-                            disabled={currentQuestionIndex === 0}
-                        >
-                            Previous
-                        </Button>
-                        {currentQuestionIndex < questions.length - 1 ? (
-                            <Button
-                                variant="primary"
-                                onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}
-                            >
-                                Next
-                            </Button>
-                        ) : (
-                            <Button variant="success" onClick={handleSubmit}>
-                                Submit Quiz
-                            </Button>
-                        )}
-                    </div>
-                </div>
-            ) : (
-                // All questions at once
-                <div>
-                    {questions.map((question, index) => (
-                        <Card key={question._id} className="mb-4">
-                            <Card.Body>
-                                <h5>Question {index + 1}</h5>
-                                {renderQuestion(question)}
-                            </Card.Body>
-                        </Card>
-                    ))}
-
-                    <div className="text-center">
-                        <Button variant="success" size="lg" onClick={handleSubmit}>
-                            Submit Quiz
-                        </Button>
-                    </div>
-                </div>
-            )} */}
         </Container>
     );
 

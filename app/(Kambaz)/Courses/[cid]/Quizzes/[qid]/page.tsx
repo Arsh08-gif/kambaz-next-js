@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store";
 import { Button, Container, Row, Col } from "react-bootstrap";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import * as client from "../../../client";
 import { FaArrowLeft } from "react-icons/fa6";
 
@@ -38,6 +40,17 @@ export default function QuizDetails() {
     };
 
     const handleStartQuiz = () => {
+        if (quiz.numberOfQuestions === 0) {
+        toast.error("Cannot start quiz: No questions are available for this quiz yet.", {
+            position: "top-center",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+        });
+        return;
+    }
         router.push(`/Courses/${cid}/Quizzes/${qid}/take`);
     };
 
@@ -63,6 +76,7 @@ export default function QuizDetails() {
 
     return (
         <Container className="mt-4">
+            <ToastContainer />
             <div className="mb-3">
                 <Button 
                     variant="outline-secondary"
