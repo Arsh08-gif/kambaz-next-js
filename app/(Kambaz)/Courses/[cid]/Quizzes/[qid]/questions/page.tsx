@@ -194,7 +194,7 @@ export default function QuizQuestionsList() {
 
             if (question.isNew) {
                 const { _id, isNew, ...questionData } = question;
-                let cleanedQuestionData = { ...questionData };
+                const cleanedQuestionData = { ...questionData };
                 if (questionData.type === "True/False" || questionData.type === "Fill in the Blank") {
                     delete cleanedQuestionData.choices;
                 } else if (questionData.type === "Multiple Choice") {
@@ -215,7 +215,7 @@ export default function QuizQuestionsList() {
                 ));
             }
             else {
-                let cleanedQuestion = { ...question };
+                const cleanedQuestion = { ...question };
 
                 if (question.type === "True/False" || question.type === "Fill in the Blank") {
                     delete cleanedQuestion.choices;
@@ -552,7 +552,7 @@ export default function QuizQuestionsList() {
             <div className="mb-4">
                 {questions.length === 0 ? (
                     <div className="text-center text-muted py-5">
-                        <p>No questions yet. Click "New Question" to add one.</p>
+                        <p>No questions yet. Click (New Question) to add one.</p>
                     </div>
                 ) : (
                     questions.map((question) => renderQuestionEditor(question))
