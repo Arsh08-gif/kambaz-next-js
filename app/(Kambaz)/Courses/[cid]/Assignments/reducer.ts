@@ -8,9 +8,9 @@ export interface Assignment {
     course: string;
     description: string;
     points: number;
-    available_date: string;
-    due_date: string;
-    until: string;
+    available_date: Date;
+    due_date: Date;
+    until: Date;
 }
 
 const initialState = {

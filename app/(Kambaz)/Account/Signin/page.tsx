@@ -24,22 +24,6 @@ export default function Signin() {
     console.log("credentials user " + credentials.username)
     console.log("credentials pwd " + credentials.password)
     const dispatch = useDispatch();
-    //const users = useSelector((state: RootState) => state.accountReducer.users);
-    //const router = useRouter();
-    // const signin = () => {
-    //     const user = db.users.find(
-    //         (u: any) =>
-    //             u.username === credentials.username &&
-    //             u.password === credentials.password
-    //     );
-    //     console.log("user pwd : " + user?.password)
-    //     console.log("user name : " + user?.username)
-    //     console.log("signed in user: " + user)
-    //     if (!user) return;
-    //     dispatch(setCurrentUser(user));
-    //     redirect("/Dashboard");
-    //     //router.push("/Dashboard");
-    // };
 
     const signin = async () => {
         const user = await client.signin(credentials);

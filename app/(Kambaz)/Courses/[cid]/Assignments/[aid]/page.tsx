@@ -1,5 +1,5 @@
 "use client"
-import { Button, Col, FormCheck, FormControl, FormLabel, FormSelect, Row } from "react-bootstrap";
+import { Button, Col, Form, FormCheck, FormControl, FormLabel, FormSelect, Row } from "react-bootstrap";
 import { IoCalendarOutline } from "react-icons/io5";
 import { useParams, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,9 +21,9 @@ export default function AssignmentEditor() {
         course: string;
         description: string;
         points: number;
-        available_date: string;
-        due_date: string;
-        until: string;
+        available_date: Date;
+        due_date: Date;
+        until: Date;
     }
     const { cid, aid } = useParams();
     console.log("aid assignment editor : " + aid)
@@ -41,9 +41,9 @@ export default function AssignmentEditor() {
         description: existingAssignment?.description || "",
         points: existingAssignment?.points || 0,
         course: cid as string,
-        available_date: existingAssignment?.available_date || "",
-        due_date: existingAssignment?.due_date || "",
-        until: existingAssignment?.until || "",
+        available_date: existingAssignment?.available_date || new Date(),
+        due_date: existingAssignment?.due_date || new Date(),
+        until: existingAssignment?.until || new Date(),
     });
     console.log("assingment : " + JSON.stringify(assignment));
 
@@ -62,9 +62,9 @@ export default function AssignmentEditor() {
             course: cid as string,
             description: assignment.description || "",
             points: assignment.points || 0,
-            available_date: assignment.available_date || "",
-            due_date: assignment.due_date || "",
-            until: assignment.until || "",
+            available_date: assignment.available_date || null,
+            due_date: assignment.due_date || null,
+            until: assignment.until || null,
         };
         console.log(JSON.stringify(newAssignment));
         const resultAssignement = await client.createAssingmentForCourse(cid as string, newAssignment);
@@ -102,6 +102,15 @@ export default function AssignmentEditor() {
         console.log("canceling ... ");
         //redirect(`/Courses/${cid}/Assignments`);
         router.push(`/Courses/${cid}/Assignments`);
+    };
+    const formatDate = (date: Date | string) => {
+        return new Date(date).toLocaleString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true
+        });
     };
     return (
         <div id="wd-assignments-editor">
@@ -217,8 +226,8 @@ export default function AssignmentEditor() {
                                 {/* <input type="text" className="form-control" defaultValue={assignment?.due_date} />
                                 <span className="input-group-text"><IoCalendarOutline /></span> */}
                                 <FormControl
-                                    type="text"
-                                    value={assignment.due_date}
+                                    type="datetime-local"
+                                    value={formatDate(assignment.due_date)}
                                     onChange={(e) => handleChange("due_date", e.target.value)}
                                 />
                             </div>
@@ -227,16 +236,22 @@ export default function AssignmentEditor() {
                         <div className="mt-3">
                             <Row>
                                 <Col>
-                                    <strong>Available From</strong>
+                                    <Form.Group>
+                                        <Form.Label className="fw-bold">Available from</Form.Label>
+                                        <Form.Control
+                                            type="datetime-local"
+                                            value={formatDate(assignment.available_date)}
+                                            onChange={(e) => handleChange("available_date", e.target.value)}
+                                        />
+                                    </Form.Group>
+                                    {/* <strong>Available From</strong>
                                     <div className="input-group">
-                                        {/* <input type="text" className="form-control" defaultValue={assignment?.available_date} />
-                                        <span className="input-group-text"><IoCalendarOutline /></span> */}
                                         <FormControl
-                                            type="text"
+                                            type="datetime-local"
                                             value={assignment.available_date}
                                             onChange={(e) => handleChange("available_date", e.target.value)}
                                         />
-                                    </div>
+                                    </div> */}
                                 </Col>
                                 <Col>
                                     <strong>Until</strong>
@@ -244,8 +259,8 @@ export default function AssignmentEditor() {
                                         {/* <input type="text" className="form-control" defaultValue={assignment?.until} />
                                         <span className="input-group-text"><IoCalendarOutline /></span> */}
                                         <FormControl
-                                            type="text"
-                                            value={assignment.until}
+                                            type="datetime-local"
+                                            value={formatDate(assignment.until)}
                                             onChange={(e) => handleChange("until", e.target.value)}
                                         />
                                     </div>

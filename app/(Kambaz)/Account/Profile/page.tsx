@@ -29,14 +29,18 @@ export default function Profile() {
     });
     const dispatch = useDispatch();
     const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+
+    const isAdmin = currentUser?.role === "ADMIN";
     const fetchProfile = () => {
+        console.log("current user profile " + JSON.stringify(currentUser));
+
         if (!currentUser) return redirect("/Account/Signin");
         setProfile(currentUser);
     };
 
     const updateProfile = async () => {
         const updatedProfile = await client.updateUser(profile);
-        if(updatedProfile){
+        if (updatedProfile) {
             alert("profile updated!!")
         }
         dispatch(setCurrentUser(updatedProfile));
@@ -79,13 +83,18 @@ export default function Profile() {
                         defaultValue={profile.email}
                         placeholder="Enter email"
                         onChange={(e) => setProfile({ ...profile, email: e.target.value })} />
-                    <select className="form-control mb-2" id="wd-role"
-                        onChange={(e) => setProfile({ ...profile, role: e.target.value })} >
-                        <option value="USER">User</option>
-                        <option value="ADMIN">Admin</option>
-                        <option value="FACULTY">Faculty</option>{" "}
-                        <option value="STUDENT">Student</option>
-                    </select>
+                    {isAdmin && (
+                        <>
+                            <select className="form-control mb-2" id="wd-role"
+                                value={profile.role}
+                                onChange={(e) => setProfile({ ...profile, role: e.target.value })} >
+                                <option value="USER">User</option>
+                                <option value="ADMIN">Admin</option>
+                                <option value="FACULTY">Faculty</option>{" "}
+                                <option value="STUDENT">Student</option>
+                            </select>
+                        </>
+                    )}
                     <button onClick={updateProfile} className="btn btn-primary w-100 mb-2"> Update </button>
                     <Button onClick={signout} className="w-100 mb-2" id="wd-signout-btn">
                         Sign out

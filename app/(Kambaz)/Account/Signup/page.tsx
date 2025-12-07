@@ -41,20 +41,18 @@ export default function Signup() {
                 className="wd-username b-2" placeholder="username" />
             <FormControl value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })}
                 className="wd-password mb-2" placeholder="password" type="password" />
+            <select
+                className="form-control mb-2"
+                id="wd-role"
+                value={user.role}
+                onChange={(e) => setUser({ ...user, role: e.target.value })}
+            >
+                <option value="STUDENT">Student</option>
+                <option value="FACULTY">Faculty</option>
+            </select>
             <button onClick={handleSignup} className="wd-signup-btn btn btn-primary mb-2 w-100"> Sign up </button><br />
             <Link href="/Account/Signin" id="wd-signin-link" className="btn btn-primary w-100 mb-2">Sign in</Link>
 
-            {/* <button
-                id="wd-signup-btn"
-                onClick={handleSignup}
-                className="btn btn-primary w-100 mb-2"
-            >
-                Sign up
-            </button>
-            <Link id="wd-signin-btn"
-                href="Signin"
-                className="btn btn-primary w-100 mb-2">
-                Sign in </Link> */}
         </div>);
 }
 
