@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentUser } from "../reducer";
 import { RootState } from "../../store";
+import { toast, ToastContainer } from 'react-toastify';
 import { Button, FormControl } from "react-bootstrap";
 export default function Profile() {
     interface Profile {
@@ -41,6 +42,14 @@ export default function Profile() {
     const updateProfile = async () => {
         const updatedProfile = await client.updateUser(profile);
         if (updatedProfile) {
+            toast.success("profile updated!!", {
+            position: "top-center",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+        });
             alert("profile updated!!")
         }
         dispatch(setCurrentUser(updatedProfile));
@@ -56,6 +65,7 @@ export default function Profile() {
     }, []);
     return (
         <div className="wd-profile-screen">
+            <ToastContainer />
             <h3>Profile</h3>
             {profile && (
                 <div>
