@@ -50,7 +50,7 @@ export default function Profile() {
             pauseOnHover: true,
             draggable: true,
         });
-            alert("profile updated!!")
+            // alert("profile updated!!")
         }
         dispatch(setCurrentUser(updatedProfile));
     };
