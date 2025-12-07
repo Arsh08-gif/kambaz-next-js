@@ -7,6 +7,7 @@ import { deleteAssignment } from "../Assignments/reducer";
 import { FaTrash } from "react-icons/fa6";
 import { RootState } from "../../../store";
 
+
 export default function LessonControlButtons({ assignmentId }: { assignmentId: string }) {
     interface Assignment {
         _id: string;

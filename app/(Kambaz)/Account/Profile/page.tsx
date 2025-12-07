@@ -71,7 +71,7 @@ export default function Profile() {
                         defaultValue={profile.lastName}
                         placeholder="Enter Last Name"
                         onChange={(e) => setProfile({ ...profile, lastName: e.target.value })} />
-                    <FormControl id="wd-dob" className="mb-2" type="date"
+                    <FormControl id="wd-dob" className="mb-2" 
                         defaultValue={profile.dob}
                         placeholder="Enter dob"
                         onChange={(e) => setProfile({ ...profile, dob: e.target.value })} />
