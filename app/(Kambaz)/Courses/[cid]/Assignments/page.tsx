@@ -134,8 +134,9 @@ export default function Assignments() {
                                         <LessonControlButtons assignmentId={assignment._id as string} />
                                         <p className="p-3 ps-1 me-6">
                                             <span className="text-danger fw-bold">Multiple Modules</span> |
-                                            <span className="fw-bold"> Not available until </span> May 6 at 12:00am |
-                                            <span className="fw-bold"> Due</span> May 13 at 11:59pm | 100 pts
+                                            {/* <span className="fw-bold"> Not available until </span> May 6 at 12:00am | */}
+                                            <span className="fw-bold"> Not available until </span> {assignment.until} |
+                                            <span className="fw-bold"> Due</span> {assignment.due_date} | {assignment.points}
                                         </p>
                                     </ListGroupItem>
                                 </Link>

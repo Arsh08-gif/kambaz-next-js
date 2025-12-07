@@ -39,11 +39,11 @@ export default function Dashboard() {
     const [showAllCourses, setShowAllCourses] = useState(false);
     const [course, setCourse] = useState<Course>({
         _id: "0",
-        name: "New Course",
+        name: "",
         number: "New Number",
         startDate: "2023-09-10",
         endDate: "2023-12-15",
-        description: "New Description",
+        description: "",
         image: "",
         department: "",
         credits: 0
@@ -56,6 +56,17 @@ export default function Dashboard() {
         console.log("create course response " + JSON.stringify(response));
         dispatch(setCourses([...courses, response.course]));
         dispatch(addEnrollment(response.enrollment))
+        setCourse({
+            _id: "0",
+            name: "",
+            number: "New Number",
+            startDate: "2023-09-10",
+            endDate: "2023-12-15",
+            description: "",
+            image: "",
+            department: "",
+            credits: 0
+        })
     };
 
     const fetchCourses = async () => {
@@ -81,12 +92,12 @@ export default function Dashboard() {
                 }
                 const userEnrollments = await client.getUserEnrollments(currentUser._id);
                 console.log("userEnrollments " + JSON.stringify(userEnrollments));
-                
+
                 dispatch(setEnrollments(userEnrollments));
                 const courseIds = userEnrollments.map((e: any) => e.course);
                 console.log("enrollement courses ids " + courseIds);
                 const myCourses = await client.fetchCoursesByIds(courseIds);
-                console.log("enrolled courses " + myCourses); 
+                console.log("enrolled courses " + myCourses);
                 dispatch(setCourses(myCourses));
                 //const courses = await client.findMyCourses();
                 //dispatch(setCourses(courses));
@@ -113,6 +124,17 @@ export default function Dashboard() {
             if (c._id === course._id) { return course; }
             else { return c; }
         })));
+        setCourse({
+            _id: "0",
+            name: "",
+            number: "New Number",
+            startDate: "2023-09-10",
+            endDate: "2023-12-15",
+            description: "",
+            image: "",
+            department: "",
+            credits: 0
+        })
     };
 
     useEffect(() => {
@@ -207,9 +229,9 @@ export default function Dashboard() {
                 </button>
             </h5>
             <br />
-            <FormControl value={course.name} className="mb-2"
+            <FormControl value={course.name} placeholder="Enter course" className="mb-2"
                 onChange={(e) => setCourse({ ...course, name: e.target.value })} />
-            <FormControl value={course.description} aria-rowspan={3}
+            <FormControl value={course.description} placeholder="Enter Description" aria-rowspan={3}
                 onChange={(e) => setCourse({ ...course, description: e.target.value })} />
 
             <hr />
