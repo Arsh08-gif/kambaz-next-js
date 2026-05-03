@@ -1,0 +1,75 @@
+import { createSlice } from "@reduxjs/toolkit";
+//import assignments from "../../../Database/assignments";
+import { v4 as uuidv4 } from "uuid";
+
+export interface Assignment {
+    _id: string;
+    title: string;
+    course: string;
+    description: string;
+    points: number;
+    available_date: Date;
+    due_date: Date;
+    until: Date;
+}
+
+const initialState = {
+    // assignments: assignments as Assignment[],
+    //assignments: assignments
+    assignments: [] as Assignment[]
+};
+
+const assignmentsSlice = createSlice({
+    name: "assignments",
+    initialState,
+    reducers: {
+        addAssignment: (state, { payload: assignment }) => {
+            console.log("inside add..");
+            console.log("assignments : " + JSON.stringify(state.assignments));
+
+            const newAssignment: Assignment = {
+                _id: uuidv4(),
+                title: assignment.title,
+                course: assignment.course,
+                description: assignment.description || "",
+                points: assignment.points || 0,
+                available_date: assignment.available_date || "",
+                due_date: assignment.due_date || "",
+                until: assignment.until || "",
+            };
+
+            console.log("new assignment : " + newAssignment.title);
+
+            state.assignments = [newAssignment, ...state.assignments];
+            console.log("new state : " + JSON.stringify(state.assignments));
+
+        },
+        deleteAssignment: (state, { payload: assignmentId }) => {
+            state.assignments = state.assignments.filter(
+                (a) => a._id !== assignmentId);
+        },
+        updateAssignment: (state, { payload: assignment }) => {
+            console.log("update..");
+            console.log("assignments : " + JSON.stringify(state.assignments));
+
+            state.assignments = state.assignments.map((a) =>
+                a._id === assignment._id ? assignment : a
+            );
+
+            console.log("updated assign : " + JSON.stringify(state.assignments));
+
+        },
+        editAssignment: (state, { payload: assignmentId }) => {
+            state.assignments = state.assignments.map((a) =>
+                a._id === assignmentId ? { ...a, editing: true } : a
+            );
+        },
+        setAssignements: (state, action) => {
+            state.assignments = action.payload;
+        },
+
+    },
+});
+export const { addAssignment, deleteAssignment, updateAssignment, setAssignements } =
+    assignmentsSlice.actions;
+export default assignmentsSlice.reducer;

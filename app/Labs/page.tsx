@@ -18,6 +18,14 @@ export default function Labs() {
           <Link href="/Labs/Lab3" id="wd-lab3-link">
             Lab 3: JavaScript Fundamentals </Link>
         </li>
+        <li>
+          <Link href="/Labs/Lab4" id="wd-lab4-link">
+            Lab 4: Maintaining State in React  </Link>
+        </li>
+        <li>
+          <Link href="/Labs/Lab5" id="wd-lab5-link">
+            Lab 5: Implementing RESTful web APIs with Express.js  </Link>
+        </li>
       </ul>
 
       <h1>Kambaz</h1>
@@ -35,7 +43,7 @@ export default function Labs() {
             Github </Link>
         </li>
         <li>
-          <Link href="https://kambaz-next-js-black-two.vercel.app/Account/Profile" id="wd-kambaz-link">
+          <Link href="https://kambaz-next-js-git-a2-arsh08-gifs-projects.vercel.app/Account/Signin" id="wd-kambaz-link">
             Vercel </Link>
         </li>
       </ul>

@@ -1,103 +1,294 @@
+"use client"
+import { Button, Col, Form, FormCheck, FormControl, FormLabel, FormSelect, Row } from "react-bootstrap";
+import { IoCalendarOutline } from "react-icons/io5";
+import { useParams, useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { addAssignment, updateAssignment, setAssignements } from "../reducer";
+//import * as db from "../../../../Database";
+import * as client from "../../../client";
+import Link from "next/link";
+import { redirect } from "next/dist/client/components/navigation";
+import { useEffect, useState } from "react";
+import { title } from "process";
+import { v4 as uuidv4 } from 'uuid';
+import { RootState } from "../../../../store";
+
+
 export default function AssignmentEditor() {
+    interface Assignment {
+        _id: string;
+        title: string;
+        course: string;
+        description: string;
+        points: number;
+        available_date: Date;
+        due_date: Date;
+        until: Date;
+    }
+    const { cid, aid } = useParams();
+    console.log("aid assignment editor : " + aid)
+    console.log("cid assignment editor : " + cid)
+    const dispatch = useDispatch();
+    const router = useRouter();
+    //const existingAssignment = db.assignments.find((a) => a._id === aid);
+    const { assignments } = useSelector((state: RootState) => state.assignmentReducer);
+    const existingAssignment = assignments.find((a) => a._id === aid);
+    console.log("existing assign : " + JSON.stringify(existingAssignment));
+
+    const [assignment, setAssignment] = useState({
+        _id: existingAssignment?._id || "",
+        title: existingAssignment?.title || "",
+        description: existingAssignment?.description || "",
+        points: existingAssignment?.points || 0,
+        course: cid as string,
+        available_date: existingAssignment?.available_date || new Date(),
+        due_date: existingAssignment?.due_date || new Date(),
+        until: existingAssignment?.until || new Date(),
+    });
+    console.log("assingment : " + JSON.stringify(assignment));
+
+
+    useEffect(() => {
+        if (existingAssignment) setAssignment(existingAssignment);
+    }, [existingAssignment]);
+
+    const onCreateAssignmentForCourse = async () => {
+        console.log("inside create assingment");
+        console.log("cid " + cid);
+        if (!cid) return;
+        const newAssignment = {
+            _id: uuidv4(),
+            title: assignment.title,
+            course: cid as string,
+            description: assignment.description || "",
+            points: assignment.points || 0,
+            available_date: assignment.available_date || null,
+            due_date: assignment.due_date || null,
+            until: assignment.until || null,
+        };
+        console.log(JSON.stringify(newAssignment));
+        const resultAssignement = await client.createAssingmentForCourse(cid as string, newAssignment);
+        dispatch(setAssignements([...assignments, resultAssignement]));
+    };
+
+    const onUpdateAssignment = async (assignement: Assignment) => {
+        console.log("inside update assingment");
+        await client.updateAssignment(assignement);
+        const newAssignment = assignments.map((a: Assignment) => a._id === assignement._id ? assignement : a);
+        dispatch(setAssignements(newAssignment));
+    };
+
+
+    const handleChange = (field: string, value: string) => {
+        setAssignment({ ...assignment, [field]: value });
+    };
+    const handleSave = () => {
+        console.log("saving..");
+        if (existingAssignment) {
+            onUpdateAssignment(assignment);
+        } else {
+            onCreateAssignmentForCourse();
+        }
+
+        // if (existingAssignment) {
+        //     dispatch(updateAssignment(assignment));
+        // } else {
+        //     dispatch(addAssignment(assignment));
+        // }
+        //redirect(`/Courses/${cid}/Assignments`);
+        router.push(`/Courses/${cid}/Assignments`);
+    };
+    const handleCancel = () => {
+        console.log("canceling ... ");
+        //redirect(`/Courses/${cid}/Assignments`);
+        router.push(`/Courses/${cid}/Assignments`);
+    };
+    const formatDate = (date: Date | string) => {
+        return new Date(date).toLocaleString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true
+        });
+    };
     return (
         <div id="wd-assignments-editor">
-            <label htmlFor="wd-name">Assignment Name</label>
-            <input id="wd-name" defaultValue="A1 - ENV + HTML" /><br /><br />
-            <textarea id="wd-description">
-                The assignment is available online Submit a link to the landing page of
-            </textarea>
-            <br />
-            <table>
-                <tr>
-                    <td align="right" valign="top">
-                        <label htmlFor="wd-points">Points</label>
-                    </td>
-                    <td>
-                        <input id="wd-points" defaultValue={100} />
-                    </td>
-                </tr><br />
-                <tr>
-                    <td align="right" valign="top">
-                        <label htmlFor="wd-group">Assignment Group</label>
-                    </td>
-                    <td>
-                        <select id="wd-group">
-                            <option value="assignment">ASSIGNMENTS</option>
-                        </select>
-                    </td>
-                </tr><br />
-                <tr>
-                    <td align="right" valign="top">
-                        <label htmlFor="wd-submission-type">Submission Type</label>
-                    </td>
-                    <td>
-                        <select id="wd-submission-type">
-                            <option value="online">Online</option>
-                        </select><br />
+            <FormLabel>Assignment Name</FormLabel>
+            <FormControl type="text"
+                value={assignment?.title}
+                onChange={(e) => handleChange("title", e.target.value)}
+            />
+            <FormControl as="textarea"
+                className="mt-3"
+                rows={3}
+                value={assignment?.description}
+                onChange={(e) => handleChange("description", e.target.value)}
+            />
 
-                        <label>Online Entry Options</label><br />
+            <Row className="mb-3 mt-3" controlId="points">
+                <FormLabel column className="text-end"> Points </FormLabel>
+                <Col sm={10}>
+                    <FormControl type="text"
+                        value={assignment?.points}
+                        onChange={(e) => handleChange("points", e.target.value)}
+                    />
+                </Col>
+            </Row>
 
-                        <input type="checkbox" name="check-genre" id="wd-text-entry" />
-                        <label htmlFor="wd-chkbox-comedy">Text Entry</label><br />
+            <Row className="mb-3 mt-3" controlId="points">
+                <FormLabel column className="text-end"> Assignment Group </FormLabel>
+                <Col sm={10}>
+                    <FormSelect>
+                        <option value="0" defaultChecked>ASSIGNMENTS</option>
+                    </FormSelect>
+                </Col>
+            </Row>
 
-                        <input type="checkbox" name="check-genre" id="wd-website-url" />
-                        <label htmlFor="wd-chkbox-drama">Website URL</label><br />
+            <Row className="mb-3 mt-3" controlId="points">
+                <FormLabel column className="text-end"> Display Grade as </FormLabel>
+                <Col sm={10}>
+                    <FormSelect>
+                        <option value="0" defaultChecked>Percentage</option>
+                    </FormSelect>
+                </Col>
+            </Row>
 
-                        <input type="checkbox" name="check-genre" id="wd-media-recordings" />
-                        <label htmlFor="wd-chkbox-scifi">Media Recordings</label><br />
+            <Row className="mb-3 mt-3" controlId="submission">
+                <FormLabel column className="text-end"> Submission Type </FormLabel>
+                <Col sm={10} className="submission-box">
+                    <div className="border rounded p-3 mt-2">
+                        <FormSelect defaultValue={"Online"}>
+                            <option value="0" defaultChecked>Online</option>
+                        </FormSelect>
+                        <div className="border rounded p-3 mt-2">
+                            <strong>Online Entry Options</strong>
+                            <FormCheck
+                                type="checkbox"
+                                id="text-entry"
+                                label="Text Entry"
+                                className="mt-4"
+                            >
+                            </FormCheck>
 
-                        <input type="checkbox" name="check-genre" id="wd-student-annotation" />
-                        <label htmlFor="wd-chkbox-fantasy">Student Annotation</label><br />
+                            <FormCheck
+                                type="checkbox"
+                                id="text-entry"
+                                label="Website URL"
+                                defaultChecked
+                                className="mt-4"
+                            >
+                            </FormCheck>
 
-                        <input type="checkbox" name="check-genre" id="wd-file-upload" />
-                        <label htmlFor="wd-chkbox-fantasy">File Uploads</label><br />
-                    </td>
-                </tr><br />
-                <tr>
-                    <td align="right" valign="top">
-                        <label htmlFor="wd-assign-to">Assign</label>
-                    </td>
-                    <td>
-                        <tr>
-                            <td><label htmlFor="wd-assign-to">Assign To</label></td><br/>
-                            <td align="right" valign="top">
-                                <input id="wd-points" defaultValue="Everyone" />
-                            </td>
-                        </tr>
-                    </td>
+                            <FormCheck
+                                type="checkbox"
+                                id="text-entry"
+                                label="Media Recordings"
+                                className="mt-4"
+                            >
+                            </FormCheck>
 
-                </tr><br />
-                <tr>
-                    <td align="right" valign="top">
-                        <label htmlFor="wd-due-date">Due</label>
-                    </td>
-                    <td>
-                        <input type="date"
-                            defaultValue="2024-05-13"
-                            id="wd-due-date" />
-                    </td>
-                </tr><br />
-                <tr>
-                    <td align="right" valign="top">
-                        <label htmlFor="wd-available-from">Available from</label>
-                    </td>
-                    <td>
-                        <input type="date"
-                            defaultValue="2024-05-06"
-                            id="wd-available-from" />
-                    </td>
-                </tr><br />
-                <tr>
-                    <td align="right" valign="top">
-                        <label htmlFor="wd-available-until">Until</label>
-                    </td>
-                    <td>
-                        <input type="date"
-                            defaultValue="2024-05-20"
-                            id="wd-available-until" />
-                    </td>
-                </tr>
-            </table>
+                            <FormCheck
+                                type="checkbox"
+                                id="text-entry"
+                                label="Student Annotation"
+                                className="mt-4"
+                            >
+                            </FormCheck>
+
+                            <FormCheck
+                                type="checkbox"
+                                id="text-entry"
+                                label="File Uploads"
+                                className="mt-4"
+                            >
+                            </FormCheck>
+                        </div>
+                    </div>
+                </Col>
+            </Row>
+
+
+            <Row className="mb-3 mt-3" controlId="assign">
+                <FormLabel column className="text-end"> Assign </FormLabel>
+                <Col sm={10}>
+                    <div className="border rounded p-3 mt-2">
+                        <strong>Assign To</strong>
+                        <div className="input-group">
+                            <span className="input-group-text">First and last name</span>
+                            <input type="text" aria-label="First name" className="form-control" />
+                            <input type="text" aria-label="Last name" className="form-control" />
+                        </div>
+
+                        <div className="input-group mt-3">
+                            <strong>Due</strong>
+                            <div className="input-group">
+                                {/* <input type="text" className="form-control" defaultValue={assignment?.due_date} />
+                                <span className="input-group-text"><IoCalendarOutline /></span> */}
+                                <FormControl
+                                    type="datetime-local"
+                                    value={formatDate(assignment.due_date)}
+                                    onChange={(e) => handleChange("due_date", e.target.value)}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="mt-3">
+                            <Row>
+                                <Col>
+                                    <Form.Group>
+                                        <Form.Label className="fw-bold">Available from</Form.Label>
+                                        <Form.Control
+                                            type="datetime-local"
+                                            value={formatDate(assignment.available_date)}
+                                            onChange={(e) => handleChange("available_date", e.target.value)}
+                                        />
+                                    </Form.Group>
+                                    {/* <strong>Available From</strong>
+                                    <div className="input-group">
+                                        <FormControl
+                                            type="datetime-local"
+                                            value={assignment.available_date}
+                                            onChange={(e) => handleChange("available_date", e.target.value)}
+                                        />
+                                    </div> */}
+                                </Col>
+                                <Col>
+                                    <strong>Until</strong>
+                                    <div className="input-group">
+                                        {/* <input type="text" className="form-control" defaultValue={assignment?.until} />
+                                        <span className="input-group-text"><IoCalendarOutline /></span> */}
+                                        <FormControl
+                                            type="datetime-local"
+                                            value={formatDate(assignment.until)}
+                                            onChange={(e) => handleChange("until", e.target.value)}
+                                        />
+                                    </div>
+                                </Col>
+                            </Row>
+                        </div>
+                    </div>
+                </Col>
+            </Row>
+            <hr />
+            <div>
+
+                <Button
+                    className="btn btn-danger btn-lg me-1 float-end m-10"
+                    id="wd-cancel-btn"
+                    onClick={handleCancel}
+                >
+                    Cancel
+                </Button>
+
+                <Button
+                    className="btn btn-secondary btn-lg me-1 float-end m-10"
+                    id="wd-save-btn"
+                    onClick={handleSave}>
+                    Save
+                </Button>
+            </div>
+
         </div>
     );
 }
